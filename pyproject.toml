@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "movie-chooser"
+version = "0.1.0"
+description = "A web app using Django to make movie suggestions"
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/mattyocode/movie-chooser"
+repository = "https://github.com/mattyocode/movie-chooser"
+authors = ["mattyocode <matthewoliver@live.co.uk>"]
+keywords = ["movies"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.1.4"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
