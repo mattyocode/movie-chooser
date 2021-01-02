@@ -16,9 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from moviechooser.library import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.homepage, name='home'),
+    path('', include('moviechooser.library.urls')),
 ]
