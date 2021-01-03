@@ -18,9 +18,9 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-MEDIA_ROOT = BASE_DIR / 'media'
-STATIC_ROOT = BASE_DIR / 'static_root'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+MEDIA_ROOT = BASE_DIR / 'moviechooser/media'
+STATIC_ROOT = BASE_DIR / 'moviechooser/static_root'
+STATICFILES_DIRS = [BASE_DIR / 'moviechooser/static']
 
 
 # Quick-start development settings - unsuitable for production

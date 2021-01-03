@@ -5,14 +5,25 @@
 {% load static %}
 
 <h1>Can't decide what to watch?</h1>
-<h2>Check these out</h2>
+<h2 class="center-subhead">Recently Added</h2><br>
+
 {% for movie in movies %}
-    <div>
-        <br>
-        <img src="{% static '{{ movie.imdb_id }}.jpg' %}">
-        {{ movie.title }} <br> {{ movie.released }}
-        <br>
+<div class="card-container">
+    <div class="card mb-3" style="width: 36rem;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img class="card-img" src="{{ movie.poster_url }}" alt="{{ movie.title }} poster image">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+                <p class="card-text">{{ movie.plot }}</p>
+                <a href="#" class="btn btn-primary">Add to list</a>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 {% endfor %}
 
 {% endblock %}
