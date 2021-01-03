@@ -1,3 +1,20 @@
-<html>
-    <title>Movie Chooser</title>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<h1>Can't decide what to watch?</h1>
+<h2>Check these out</h2>
+{% for movie in movies %}
+    <div>
+        <br>
+        <img src="{% static '{{ movie.imdb_id }}.jpg' %}">
+        {{ movie.title }} <br> {{ movie.released }}
+        <br>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+
