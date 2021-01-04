@@ -9,6 +9,7 @@ from django.db import models
 
 
 class Movie(models.Model):
+    """Model representing a movie - selected fields from OMDB."""
     imdb_id = models.CharField(primary_key=True, max_length=12)
     title = models.CharField(max_length=200)
     rated = models.CharField(max_length=10, blank=True, null=True)
@@ -31,5 +32,6 @@ class Movie(models.Model):
         managed = False
         db_table = 'movies'
 
-    def __unicode__(self):
+    def __str__(self):
+        """String to represent Movie model object."""
         return self.title
