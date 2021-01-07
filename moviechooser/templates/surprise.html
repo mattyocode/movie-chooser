@@ -2,12 +2,6 @@
 
 {% block content %}
 
-{% load static %}
-
-<h1>Can't decide what to watch?</h1>
-<h2 class="center-subhead">Recently Added</h2><br>
-
-{% for movie in movies %}
 <div class="card-container">
     <div class="card mb-3" style="width: 36rem;">
         <div class="row no-gutters">
@@ -24,6 +18,5 @@
         </div>
     </div>
 </div>
-{% endfor %}
 
 {% endblock %}
