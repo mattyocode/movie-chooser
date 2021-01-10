@@ -20,7 +20,16 @@ def surprise(request):
         'year': random_movie.get_year(),
         'genre': random_movie.get_genre(),
     }
-    # year = random_movie.get_year()
-    # genre = random_movie.get_genre()
 
     return render(request, 'surprise.html', context=context)
+
+def movie_detail(request, pk):
+    movie = get_object_or_404(Movie, imdbid=pk)
+    context = {
+        'movie': movie,
+        'actors': movie.get_actors(),
+        'director': movie.get_director(),
+        'year': movie.get_year(),
+        'genre': movie.get_genre(),
+    }
+    return render(request, 'detail_page.html', context=context)
