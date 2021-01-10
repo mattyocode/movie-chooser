@@ -8,30 +8,46 @@
 from django.db import models
 
 
-class Movie(models.Model):
-    """Model representing a movie - selected fields from OMDB."""
-    imdb_id = models.CharField(primary_key=True, max_length=12)
-    title = models.CharField(max_length=200)
-    rated = models.CharField(max_length=10, blank=True, null=True)
-    released = models.DateField()
-    runtime = models.IntegerField()
-    genre = models.CharField(max_length=50)
-    director = models.CharField(max_length=45)
-    writer = models.CharField(max_length=75)
-    actors = models.CharField(max_length=100)
-    plot = models.CharField(max_length=500)
-    language = models.CharField(max_length=40)
-    country = models.CharField(max_length=40)
-    poster_url = models.CharField(max_length=200)
-    imdb_rating = models.IntegerField()
-    metacritic = models.IntegerField()
-    rotten_tomatoes = models.IntegerField()
-    type_field = models.CharField(db_column='type_', max_length=12)  # Field renamed because it ended with '_'.
-
-    class Meta:
-        managed = False
-        db_table = 'movies'
+class Genre(models.Model):
+    name = models.CharField(unique=True, max_length=50)
 
     def __str__(self):
-        """String to represent Movie model object."""
+        return self.name
+
+
+class Actor(models.Model):
+    name = models.CharField(unique=True, max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class Director(models.Model):
+    name = models.CharField(unique=True, max_length=200)
+
+    def __str__(self):
+        return self.name
+
+
+class Movie(models.Model):
+    imdbid = models.CharField(primary_key=True, max_length=20)
+    title = models.CharField(max_length=200)
+    rated = models.CharField(max_length=20, blank=True, null=True)
+    released = models.DateField()
+    runtime = models.IntegerField()
+    genre = models.ManyToManyField(Genre)
+    director = models.ManyToManyField(Director)
+    writer = models.CharField(max_length=500)
+    actors = models.ManyToManyField(Actor)
+    plot = models.CharField(max_length=500, null=True)
+    language = models.CharField(max_length=40, null=True)
+    country = models.CharField(max_length=40, null=True)
+    poster_url = models.CharField(max_length=200)
+    imdb_rating = models.IntegerField(null=True)
+    metacritic = models.IntegerField(null=True)
+    rotten_tomatoes = models.IntegerField(null=True)
+    avg_rating = models.IntegerField(null=True)
+    type_field = models.CharField(db_column='type_', max_length=12, null=True)
+
+    def __str__(self):
         return self.title
