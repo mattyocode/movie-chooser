@@ -1,0 +1,9 @@
+.card-container {
+    margin: 0 auto !important;
+    padding: 10px 0;
+    width: 23rem;
+}
+
+.center-subhead {
+    text-align: center;
+}

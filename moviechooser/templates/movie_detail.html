@@ -1,14 +1,31 @@
-{% extends 'base.html' %}
-
 {% block content %}
 
-{% load static %}
+<div class="container">
+  <!-- Portfolio Item Row -->
+  <div class="row">
 
-<h1>Can't decide what to watch?</h1>
-<h2 class="center-subhead">Recently Added</h2><br>
+    <div class="col-md-8">
+      <img class="img-fluid" src="{{ movie.poster_url }}" alt="{{ movie.title }} poster image">
+    </div>
 
-{% for movie in movies %}
-<div class="card-container">
+    <div class="col-md-4">
+      <h3 class="my-3">{{ movie.title }}</h3>
+      <p>{{ movie.plot }}</p>
+      <ul>
+        <li>Starring: {{ actors }}</li>
+        <li>Directed by: {{ director }}</li>
+        <li>Released: {{ year }}</li>
+        <li>Genre: {{ genre }}</li>
+      </ul>
+    </div>
+
+  </div>
+  <!-- /.row -->
+</div>
+{% endblock %}
+
+
+<!-- <div class="card-container">
     <div class="card mb-3" style="width: 36rem;">
         <div class="row no-gutters">
             <div class="col-md-4">
@@ -23,7 +40,4 @@
             </div>
         </div>
     </div>
-</div>
-{% endfor %}
-
-{% endblock %}
+</div> -->
