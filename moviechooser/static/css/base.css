@@ -7,3 +7,13 @@
 .center-subhead {
     text-align: center;
 }
+
+.jumbotron {
+    background-image: url("/static/hero_homepage.jpg");
+    background-size: cover;
+    color: white;
+}
+
+.chooser-div {
+    padding: 30px
+}

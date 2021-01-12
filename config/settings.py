@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'moviechooser.library.apps.LibraryConfig',
+    'moviechooser.chooser.apps.ChooserConfig',
 ]
 
 MIDDLEWARE = [
@@ -136,4 +137,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = 'moviechooser/static/'
+STATIC_URL = '/static/'

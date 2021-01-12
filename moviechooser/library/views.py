@@ -33,3 +33,5 @@ def movie_detail(request, pk):
         'genre': movie.get_genre(),
     }
     return render(request, 'detail_page.html', context=context)
+
+

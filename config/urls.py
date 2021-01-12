@@ -22,7 +22,8 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('moviechooser.library.urls')),
+    path('', include('moviechooser.chooser.urls')),
+    path('library/', include('moviechooser.library.urls')),
 ]
 
 if settings.DEBUG:
