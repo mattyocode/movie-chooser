@@ -6,7 +6,7 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
-
+        
 
 class Actor(models.Model):
     name = models.CharField(unique=True, max_length=200)

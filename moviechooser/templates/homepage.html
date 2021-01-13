@@ -5,9 +5,18 @@
 
 <div class="jumbotron">
     <h1 class="display-4">Welcome to Movie Chooser</h1>
-    <p class="lead">Stop endlessly scrolling through that streaming site and just f*cking watch something!</p>
+    <p class="lead">Stop endlessly scrolling through that streaming site and just f*cking watch something... good!</p>
     <hr class="my-4">
     <p>Choose from the options below and get your top 10 recommendations.</p>
+
+    <form action="{% url 'chooser:selection' %}" method="get">
+        {% for genre in genres %}
+            <input type="radio" name="{{ genre.name }}" id="{{ genre.id }}" value="{{ genre.id }}">
+            <label for="{{ genre.id }}">{{ genre.name }}</label><br>
+        {% endfor %}
+    <input type="submit" value="Genre Choice">
+
+    </form>
     <!-- <p class="lead"> -->
       <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
     <!-- </p> -->
