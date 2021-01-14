@@ -11,7 +11,7 @@
 
     <form action="{% url 'chooser:selection' %}" method="get">
         {% for genre in genres %}
-            <input type="radio" name="{{ genre.name }}" id="{{ genre.id }}" value="{{ genre.id }}">
+            <input type="checkbox" name="{{ genre.name }}" id="{{ genre.id }}" value="{{ genre.id }}">
             <label for="{{ genre.id }}">{{ genre.name }}</label><br>
         {% endfor %}
     <input type="submit" value="Genre Choice">

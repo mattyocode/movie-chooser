@@ -13,7 +13,12 @@ def homepage(request):
     return render(request, 'homepage.html', context)
 
 def selection(request):
-    return render(request, 'detail_page.html')
+    genre_selection = request.GET
+    movies = Movie.objects.filter(genre__name__in=genre_selection).distinct().order_by('-avg_rating')
+    context = {
+        'movies': movies
+    }
+    return render(request, 'results.html', context)
 
 
     

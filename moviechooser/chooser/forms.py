@@ -9,5 +9,5 @@ class MovieChoiceForm(forms.ModelForm):
         model = MovieChoice
         fields = '__all__'
         widgets = {
-            'genre': forms.RadioSelect()
+            'genre': forms.CheckboxSelectMultiple()
         }
