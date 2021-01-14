@@ -11,7 +11,10 @@ def index(request):
 
 def surprise(request):
     movies = Movie.objects.all()
-    rand_index = randint(0, len(movies) - 1)
+    if len(movies) > 1:
+        rand_index = randint(0, len(movies) - 1)
+    else: 
+        rand_index = 0
     random_movie = movies[rand_index]
     context = {
         'movie': random_movie,
