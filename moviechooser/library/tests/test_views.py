@@ -17,8 +17,9 @@ class LibraryIndexTest(TestCase):
 
 
 class LibrarySurpriseTest(TestCase):
-    
-    def test_uses_library_surprise_template(self):
+    @classmethod
+    def setUpTestData(cls):
+        """Set up non-modified objects used by all test methods."""
         movie = Movie.objects.create(
             imdbid='test1234',
             title='Tester: Revenge of the Test',
@@ -27,31 +28,20 @@ class LibrarySurpriseTest(TestCase):
             writer='Check Itt',
             poster_url='www.example.com/image/location/img.jpg'
         )
+    
+    def test_uses_library_surprise_template(self):
+        movie = Movie.objects.get(imdbid='test1234')
         response = self.client.get('/library/surprise/')
         self.assertTemplateUsed(response, 'surprise.html')
 
     def test_displays_when_1_movie(self):
-        movie = Movie.objects.create(
-            imdbid='test1234',
-            title='Tester: Revenge of the Test',
-            released='2021-01-14',
-            runtime='100',
-            writer='Check Itt',
-            poster_url='www.example.com/image/location/img.jpg'
-        )
+        movie = Movie.objects.get(imdbid='test1234')
         response = self.client.get('/library/surprise/')
         self.assertContains(response, 'Tester: Revenge of the Test')
         self.assertContains(response, 'Surprise, Mother Flicker!')
 
     def test_displays_when_2_movies(self):
-        movie_1 = Movie.objects.create(
-            imdbid='test1234',
-            title='Tester: Revenge of the Test',
-            released='2021-01-14',
-            runtime='100',
-            writer='Check Itt',
-            poster_url='www.example.com/image/location/img.jpg'
-        )
+        movie = Movie.objects.get(imdbid='test1234')
         movie_2 = Movie.objects.create(
             imdbid='test7890',
             title='Tester 2: Test Harder',
@@ -66,8 +56,9 @@ class LibrarySurpriseTest(TestCase):
 
 
 class MovieDetailTest(TestCase):
-
-    def test_uses_movie_detail_template(self):
+    @classmethod
+    def setUpTestData(cls):
+        """Set up non-modified objects used by all test methods."""
         movie = Movie.objects.create(
             imdbid='test1234',
             title='Tester: Revenge of the Test',
@@ -76,19 +67,15 @@ class MovieDetailTest(TestCase):
             writer='Check Itt',
             poster_url='www.example.com/image/location/img.jpg'
         )
+
+    def test_uses_movie_detail_template(self):
+        movie = Movie.objects.get(imdbid='test1234')
         response = self.client.get('/library/movie/test1234/')
         self.assertTemplateUsed(response, 'movie_detail.html')
 
 
     def test_displays_selected_movie_detail(self):
-        movie = Movie.objects.create(
-            imdbid='test1234',
-            title='Tester: Revenge of the Test',
-            released='2021-01-14',
-            runtime='100',
-            writer='Check Itt',
-            poster_url='www.example.com/image/location/img.jpg'
-        )
+        movie = Movie.objects.get(imdbid='test1234')
         response = self.client.get('/library/movie/test1234/')
         self.assertContains(response, 'Tester: Revenge of the Test')
         self.assertContains(response, 'Movie Details')
