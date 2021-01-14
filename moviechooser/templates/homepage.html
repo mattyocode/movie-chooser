@@ -8,18 +8,22 @@
     <p class="lead">Stop endlessly scrolling through that streaming site and just f*cking watch something... good!</p>
     <hr class="my-4">
     <p>Choose from the options below and get your top 10 recommendations.</p>
+</div>
 
+<div class="choices-panel" style="padding-left: 30px;">
     <form action="{% url 'chooser:selection' %}" method="get">
         {% for genre in genres %}
             <input type="checkbox" name="{{ genre.name }}" id="{{ genre.id }}" value="{{ genre.id }}">
             <label for="{{ genre.id }}">{{ genre.name }}</label><br>
         {% endfor %}
-    <input type="submit" value="Genre Choice">
+    <br>
+    <input class="btn btn-primary btn-sm" type="submit" value="Genre Choice">
 
     </form>
+</div>
     <!-- <p class="lead"> -->
       <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
     <!-- </p> -->
-  </div>
+
 
 {% endblock %}

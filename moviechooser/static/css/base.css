@@ -8,6 +8,10 @@
     text-align: center;
 }
 
+.choices-panel {
+    padding-left: 30px !important;
+}
+
 /* .jumbotron {
     background-image: url("/static/hero_homepage.jpg");
     background-size: cover;
