@@ -6,7 +6,6 @@ class MovieModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         """Set up non-modified objects used by all test methods."""
-
         Movie.objects.create(
             imdbid='test1234',
             title='Tester: Revenge of the Test',
@@ -15,10 +14,6 @@ class MovieModelTest(TestCase):
             writer='Check Itt',
             poster_url='www.example.com/image/location/img.jpg',
         )
-
-        # genre_instance = Genre.objects.create(name="Horror")
-        # director_instance = Director.objects.create(name="Terry Ester")
-        # actor_instance = Actor.objects.create(name="Wunman Show")
 
     def test_title_label(self):
         """It uses correct label for title."""
@@ -88,3 +83,42 @@ class MovieModelTest(TestCase):
         movie.director.add(Director.objects.create(name="David Lint"))
         result = movie.get_director()
         self.assertEqual(result, 'Christopher Codeman, David Lint')
+
+
+class GenreModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        """Set up non-modified objects used by all test methods."""
+        Genre.objects.create(name='Comedy')
+
+    def test_str_returns_title(self):
+        """It returns name as string."""
+        genre = Genre.objects.get(id=1)
+        result = genre.__str__()
+        self.assertEqual(result, 'Comedy')
+
+
+class ActorModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        """Set up non-modified objects used by all test methods."""
+        Actor.objects.create(name='Lint Eastwood')
+
+    def test_str_returns_title(self):
+        """It returns name as string."""
+        actor = Actor.objects.get(id=1)
+        result = actor.__str__()
+        self.assertEqual(result, 'Lint Eastwood')
+
+
+class DirectorModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        """Set up non-modified objects used by all test methods."""
+        Director.objects.create(name='Christopher Codeman')
+
+    def test_str_returns_title(self):
+        """It returns name as string."""
+        director = Director.objects.get(id=1)
+        result = director.__str__()
+        self.assertEqual(result, 'Christopher Codeman')
