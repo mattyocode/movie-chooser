@@ -9,11 +9,13 @@ from moviechooser.library.models import Movie, Genre
 def homepage(request):
     genres = Genre.objects.all()
     sorted_runtimes = [movie.runtime for movie in Movie.objects.order_by('runtime')]
+    decades = sorted(set([movie.get_decade() for movie in Movie.objects.all()]))
 
     context = {
         'genres': genres,
         'min_runtime': sorted_runtimes[0],
         'max_runtime': sorted_runtimes[-1],
+        'decades': decades,
     }
     return render(request, 'homepage.html', context)
 

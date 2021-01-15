@@ -28,9 +28,15 @@
             name="runtime" value="{{ max_runtime }}" min="{{ min_runtime }}" max="{{ max_runtime }}">
         <span class="range-slider__value">0</span>
     </div>
-    
-    
     <br>
+    <h2>Choose decade</h2>
+    <br>
+        {% for decade in decades %}
+            <input type="checkbox" name="decade_choice" id="decade_choice" value="{{ decade }}">
+            <label for="{{ decade }}">{{ decade }}</label><br>
+        {% endfor %}
+    <br>
+    
     <br>
     <input class="btn btn-primary btn-sm" type="submit" value="GO!">
 

@@ -49,6 +49,11 @@ class Movie(models.Model):
         year = self.released.strftime("%Y")
         return year
 
+    def get_decade(self):
+        decade = self.get_year()
+        decade = decade[:3] + '0'
+        return decade
+
     def get_genre(self):
         genre_str = ', '.join([genre.name for genre in self.genre.all()])
         return genre_str
