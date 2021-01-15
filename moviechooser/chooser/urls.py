@@ -4,5 +4,5 @@ from . import views
 app_name = 'chooser'
 urlpatterns = [
     path('', views.homepage, name='homepage'),
-    path('selection/', views.selection, name='selection'),
+    path('results/', views.results, name='results'),
 ]

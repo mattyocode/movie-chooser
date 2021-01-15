@@ -27,7 +27,7 @@ class Movie(models.Model):
     title = models.CharField(max_length=200)
     rated = models.CharField(max_length=20, blank=True, null=True)
     released = models.DateField()
-    runtime = models.IntegerField()
+    runtime = models.IntegerField(null=True)
     genre = models.ManyToManyField(Genre)
     director = models.ManyToManyField(Director)
     writer = models.CharField(max_length=500)
@@ -60,4 +60,5 @@ class Movie(models.Model):
     def get_director(self):
         director_str = ', '.join([director.name for director in self.director.all()])
         return director_str
+
         

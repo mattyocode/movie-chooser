@@ -84,6 +84,20 @@ class MovieModelTest(TestCase):
         result = movie.get_director()
         self.assertEqual(result, 'Christopher Codeman, David Lint')
 
+    def test_get_shortest_runtime(self):
+        """It returns lowest runtime integer."""
+        movie = Movie.objects.get(imdbid='test1234')
+        movie_2 = Movie.objects.create(
+            imdbid='test7890',
+            title='Tester 2: Test Harder',
+            released='2021-01-15',
+            runtime='111',
+            writer='Check Itt',
+            poster_url='www.example.com/image/location/img2.jpg'
+        )
+        result = movie.get_all_min_runtime()
+        self.assertEqual(result, 100)
+
 
 class GenreModelTest(TestCase):
     @classmethod

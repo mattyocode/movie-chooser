@@ -15,13 +15,13 @@ class HomePageIntegratedTest(TestCase):
         self.assertContains(response, 'Welcome to Movie Chooser')
 
 
-class SelectionIntegratedTest(TestCase):
+class ResultsIntegratedTest(TestCase):
 
     def test_uses_results_template(self):
-        response = self.client.get('/selection/')
+        response = self.client.get('/results/')
         self.assertTemplateUsed(response, 'results.html')
 
     def test_displays_results_content(self):
-        response = self.client.get('/selection/')     
+        response = self.client.get('/results/')     
         self.assertContains(response, 'Selected Movies')
 

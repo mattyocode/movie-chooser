@@ -8,10 +8,18 @@
 <br>
 <h2 class="center-subhead">Selected Movies</h2><br>
 
-{% for movie in movies %}
+{% if movies %}
+    {% for movie in movies %}
 
-{% include 'movie_card.html' %}
+    {% include 'movie_card.html' %}
 
-{% endfor %}
+    {% endfor %}
+
+{% else %}
+
+    <h2 class="center-subhead">No movies match your search :( Let's try again</h2>
+    <a href="{% url 'chooser:homepage' %}">Back to homepage</a>
+
+{% endif %}
 
 {% endblock %}
