@@ -18,7 +18,20 @@ django-filter = "^2.4.0"
 
 [tool.poetry.dev-dependencies]
 selenium = "^3.141.0"
-coverage = "^5.3.1"
+coverage = {version = "^5.3.1", extras = ["toml"]}
+
+[tool.coverage.paths]
+source = ["moviechooser", "*/site-packages"]
+
+[tool.coverage.run]
+branch = true
+include = ["moviechooser/*"]
+
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
