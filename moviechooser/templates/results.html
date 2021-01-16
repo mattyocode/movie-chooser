@@ -3,10 +3,10 @@
 {% block content %}
 
 {% load static %}
-<br>
-<h1>Can't decide what to watch?</h1>
-<br>
-<h2 class="center-subhead">Selected Movies</h2><br>
+<div class="jumbotron">
+    <h1 class="display-4 center-subhead">Selected Movies</h1>
+</div>
+
 
 {% if movies %}
     {% for movie in movies %}
@@ -17,9 +17,14 @@
 
 {% else %}
 
-    <h2 class="center-subhead">No movies match your search :( Let's try again</h2>
+<div class="choices-panel">
+    <h2 class="center-subhead"><strong>No movies match your search</strong></h2>
+    <h2 class="center-subhead">Try again</h2>
+    <br>
     <a href="{% url 'chooser:homepage' %}">Back to homepage</a>
+</div>
 
 {% endif %}
+
 
 {% endblock %}

@@ -2,12 +2,13 @@
 
 {% block content %}
 
-<h1 class="my-4">Movie Details
-    <small>What you need to know</small>
-</h1>
+<div class="jumbotron">
+    <h1 class="display-4">Movie Details</h1>
+    <p class="lead">What you need to know...</p>
+</div>
 
-<br>
-
-{% include 'movie_detail.html' %}
+<div class="page-container">
+    {% include 'movie_detail.html' %}
+</div>
 
 {% endblock %}

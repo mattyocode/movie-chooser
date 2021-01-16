@@ -1,14 +1,14 @@
 {% block content %}
 
 <div class="container">
+  <div class="choices-panel">
   <!-- Portfolio Item Row -->
   <div class="row">
-
-    <div class="col-md-8">
+    <div class="col-md-4">
       <img class="img-fluid" src="{{ movie.poster_url }}" alt="{{ movie.title }} poster image">
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-8">
       <h3 class="my-3">{{ movie.title }}</h3>
       <p>{{ movie.plot }}</p>
       <ul>
@@ -22,5 +22,6 @@
 
   </div>
   <!-- /.row -->
+  </div>
 </div>
 {% endblock %}

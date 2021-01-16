@@ -1,23 +1,51 @@
-.card-container {
-    margin: 0 auto !important;
-    padding: 10px 0;
-    width: 23rem;
+.jumbotron {
+    background-color: rgba(34,34,34,0.8);
+    color: white;
+    padding: 2em 2em;
+}
+
+.centered-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col-md-4 {
+    margin: auto;
+}
+
+.card.mb-3 {
+    box-shadow: 5px 10px 18px #444;
+}
+
+.row.no-gutters {
+    margin: 1em;
+
+}
+
+.card-img {
+    margin-left: 0.05em;
 }
 
 .center-subhead {
     text-align: center;
 }
 
-.choices-panel {
-    padding-left: 30px !important;
+body {
+    background-image: url('../background_img1.jpg');
 }
 
-/* .jumbotron {
-    background-image: url("/static/hero_homepage.jpg");
-    background-size: cover;
-    color: white;
-} */
+.page-container {
+    width: 80%;
+    margin: auto;
+}
 
-/* .chooser-div {
-    padding: 30px
-} */
+.choices-panel {
+    background-color: #eee;
+    color: black;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 20px 0;
+    box-shadow: 5px 10px 18px #444;
+    /* text-align: center; */
+}

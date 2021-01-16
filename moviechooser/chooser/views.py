@@ -9,7 +9,7 @@ from moviechooser.library.models import Movie, Genre
 def homepage(request):
     genres = Genre.objects.all()
     sorted_runtimes = [movie.runtime for movie in Movie.objects.order_by('runtime')]
-    decades = sorted(set([movie.get_decade() for movie in Movie.objects.all()]))
+    decades = sorted(set([movie.get_decade() for movie in Movie.objects.all()]), reverse=True)
 
     context = {
         'genres': genres,
@@ -25,19 +25,20 @@ def results(request):
     runtime = request.GET.getlist('runtime')[0]
     decade_selection = request.GET.getlist('decade_choice')
 
-    # if genre_selection != []:
-    #     movies = Movie.objects.filter(genre__name__in=genre_selection).distinct().order_by('-avg_rating')
-    # else:
-    #     movies = Movie.objects.all()
+    print(genre_selection)
+    if genre_selection != []:
+        movies = Movie.objects.filter(genre__name__in=genre_selection)
+    else:
+        movies = Movie.objects.all()
 
-    movies = Movie.objects.filter(
-                Q(genre__name__in=genre_selection),
+    movies = movies.filter(
+                # Q(genre__name__in=genre_selection),
                 Q(runtime__lte=runtime),
                 Q(*[('released__startswith', decade[:3]) for decade in decade_selection],
                 _connector=Q.OR)
             )
 
-    movies = movies.distinct().order_by('-avg_rating')
+    movies = movies.distinct().order_by('-avg_rating')[:30]
 
     context = {
         'movies': movies

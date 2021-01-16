@@ -51,7 +51,7 @@ class Movie(models.Model):
 
     def get_decade(self):
         decade = self.get_year()
-        decade = decade[:3] + '0'
+        decade = decade[:3] + '0s'
         return decade
 
     def get_genre(self):

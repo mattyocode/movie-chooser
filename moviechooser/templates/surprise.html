@@ -2,12 +2,13 @@
 
 {% block content %}
 
-<h1 class="my-4">Surprise, Mother Flicker!
-    <small>Watch this</small>
-</h1>
+<div class="jumbotron">
+    <h1 class="display-4 center-subhead">Surprise, Mother Flicker!</h1>
+    <p class="lead center-subhead">Try this!</p>
+</div>
 
-<br>
-
-{% include 'movie_detail.html' %}
+<div class="page-container">
+    {% include 'movie_detail.html' %}
+</div>
 
 {% endblock %}
