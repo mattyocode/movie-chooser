@@ -23,15 +23,21 @@ def results(request):
     print('request', request.GET)
     genre_selection = request.GET.getlist('genre_choice')
     runtime = request.GET.getlist('runtime')[0]
+    decade_selection = request.GET.getlist('decade_choice')
 
-    if genre_selection != []:
-        movies = Movie.objects.filter(genre__name__in=genre_selection).distinct().order_by('-avg_rating')
-    else:
-        movies = Movie.objects.all()
+    # if genre_selection != []:
+    #     movies = Movie.objects.filter(genre__name__in=genre_selection).distinct().order_by('-avg_rating')
+    # else:
+    #     movies = Movie.objects.all()
 
-    movies = movies.filter(
-                Q(runtime__lt=runtime)
+    movies = Movie.objects.filter(
+                Q(genre__name__in=genre_selection),
+                Q(runtime__lte=runtime),
+                Q(*[('released__startswith', decade[:3]) for decade in decade_selection],
+                _connector=Q.OR)
             )
+
+    movies = movies.distinct().order_by('-avg_rating')
 
     context = {
         'movies': movies
