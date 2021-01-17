@@ -1,6 +1,7 @@
 from random import randint, shuffle
 
 from django.shortcuts import get_object_or_404, render
+from django.db.models import Q
 
 from .models import Movie
 
@@ -37,4 +38,11 @@ def movie_detail(request, pk):
     }
     return render(request, 'detail_page.html', context=context)
 
+def search_results(request):
+    query = request.GET.get('q')
+    object_list = Movie.objects.filter(
+        Q(title__icontains=query)
+        )
+    return render(request, 'search_results.html', {'movies': object_list})
+        
 

@@ -184,6 +184,7 @@ label[for="runtime"] {
     box-shadow: 3px 3px; 
   }
 
-  /* .btn-lg {
-      background-color: #111;
-  } */
+.search-bar {
+    right: 2em;
+    position: absolute;
+  }

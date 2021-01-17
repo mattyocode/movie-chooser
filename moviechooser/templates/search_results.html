@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<div class="jumbotron">
+    <h1 class="display-4 center-subhead">Search Results</h1>
+</div>
+
+{% for movie in movies %}
+
+    {% include 'movie_card.html' %}
+
+{% endfor %}
+
+{% endblock %}
