@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, shuffle
 
 from django.shortcuts import get_object_or_404, render
 
@@ -6,7 +6,7 @@ from .models import Movie
 
 # Create your views here.
 def index(request):
-    movies = Movie.objects.all().order_by("-released")
+    movies = Movie.objects.order_by('?')
     return render(request, 'library.html', {'movies': movies})
 
 def surprise(request):

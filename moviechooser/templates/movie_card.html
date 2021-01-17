@@ -9,7 +9,7 @@
                 <h5 class="card-title">{{ movie.title }}</h5>
                 <p class="card-text">{{ movie.plot }}</p>
                 <br>
-                <p class="card-text"><strong>Average Score: {{ movie.avg_rating }}</strong></p>
+                <p class="card-text score"><strong>Average Score: {{ movie.avg_rating }}</strong></p>
                 <a href="#" class="btn btn-primary">Add to list</a>
                 <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary">Movie info</a>
                 </div>
