@@ -32,8 +32,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_S3_REGION_NAME = 'eu-west-2'
 # AWS_LOCATION = 'static'
-STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.eu-west-2.amazonaws.com/static/'
-ADMIN_MEDIA_PREFIX = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.eu-west-2.amazonaws.com/static/admin/'
+STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
+ADMIN_MEDIA_PREFIX = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/admin/'
 
 # HEROKU CONFIG
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
