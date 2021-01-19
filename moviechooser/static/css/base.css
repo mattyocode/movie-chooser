@@ -195,3 +195,9 @@ label[for="runtime"] {
       position: relative;
     }
   }
+
+.step-links {
+  margin: auto;
+  font-family: 'Poppins', sans-serif;
+  color: black;
+}

@@ -1,5 +1,6 @@
 from random import randint, shuffle
 
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 
@@ -8,7 +9,16 @@ from .models import Movie
 # Create your views here.
 def index(request):
     movies = Movie.objects.order_by('?')
-    return render(request, 'library.html', {'movies': movies})
+
+    paginator = Paginator(movies, 11)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'movies': movies,
+        'page_obj': page_obj,
+    }
+    return render(request, 'library.html', context=context)
 
 def surprise(request):
     movies = Movie.objects.all()

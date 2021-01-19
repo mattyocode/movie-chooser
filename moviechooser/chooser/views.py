@@ -25,7 +25,6 @@ def results(request):
     runtime = request.GET.getlist('runtime')[0]
     decade_selection = request.GET.getlist('decade_choice')
 
-    print(genre_selection)
     if genre_selection != []:
         movies = Movie.objects.filter(genre__name__in=genre_selection)
     else:

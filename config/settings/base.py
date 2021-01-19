@@ -26,15 +26,16 @@ STATICFILES_DIRS = [BASE_DIR / 'moviechooser/static']
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-if 'DJANGO_DEBUG_FALSE' in os.environ:
-    DEBUG = False
-    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-    ALLOWED_HOSTS = [os.environ['SITENAME']]
-else:
-    DEBUG = True
-    SECRET_KEY = 'insecure_key_for_dev'
-    ALLOWED_HOSTS = []
+# if 'DJANGO_DEBUG_FALSE' in os.environ:
+#     DEBUG = False
+#     SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+#     ALLOWED_HOSTS = [os.environ['SITENAME']]
+# else:
+#     DEBUG = True
+#     SECRET_KEY = 'insecure_key_for_dev'
+#     ALLOWED_HOSTS = []
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
