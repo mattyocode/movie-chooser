@@ -15,6 +15,7 @@ h2 {
     background-color: rgba(34,34,34,0.9);
     color: white;
     padding: 2em 2em;
+    border-radius: 0;
 }
 
 .centered-element {
@@ -24,7 +25,7 @@ h2 {
 }
 
 .col-md-4 {
-    margin: auto;
+  margin: auto;
 }
 
 .card.mb-3 {
@@ -44,9 +45,13 @@ h2 {
     text-align: center;
 }
 
+.card-text {
+  font-size: small;
+}
+
 body {
     background-image: url('../images/background_small_flare.jpg');
-    background-repeat: round;
+    /* background-repeat: round; */
 }
 
 .page-container {
@@ -71,12 +76,12 @@ body {
     margin: 0 auto;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 0.25rem;
-    align-items:center;
+    align-items: center;
 }
 
 .choice-buttons > :checked+label {
     background: url('../images/background_small_flare.jpg');
-    background-repeat: round;
+    /* background-repeat: round; */
     background-attachment: fixed;
     border: 2px solid #222;
     color: white;
@@ -101,7 +106,7 @@ label, .range-slider__value {
     display: block;
     font-weight: bolder;
     border-radius: 10px;
-    font-size:xx-large;
+    font-size: large;
     background-color: transparent;
     position: relative;
     margin: 0;
@@ -125,7 +130,7 @@ label[for="runtime"] {
     padding: 0.5em;
     display: inline-block;
     font-weight: bolder;
-    font-size:x-large;
+    font-size: medium;
     background-color: rgba(255, 255, 255, 0);
     margin: 0.5em;
     cursor:auto;
@@ -138,7 +143,7 @@ label[for="runtime"] {
   }
 
 .range-slider__range {
-    cursor:pointer;
+    cursor: pointer;
     -webkit-appearance: none;
     width: 70%;
     height: 15px;
@@ -171,7 +176,7 @@ label[for="runtime"] {
 .range-slider__value {
     font-family: 'Poppins', sans-serif;
     font-weight: bolder;
-    font-size: x-large;
+    font-size: large;
     color: white;
     display:inline-block;
     font-weight: bolder;
@@ -209,7 +214,13 @@ label[for="runtime"] {
   margin: auto;
   font-family: 'Poppins', sans-serif;
   color: black;
-  font-size: large;
+  font-size: medium;
+}
+
+.step-links > a {
+  color: #333;
+  font-size: medium;
+  text-decoration: underline;
 }
 
 .keep-row {
@@ -225,5 +236,13 @@ label[for="runtime"] {
 }
 
 .keep-row > p {
-  font-size: large;
+  font-size: small;
+}
+
+.back-button {
+  margin: auto;
+}
+
+.back-button > .btn {
+  background-color: black;
 }
