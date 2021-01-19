@@ -34,5 +34,5 @@ AWS_S3_REGION_NAME = 'eu-west-2'
 # AWS_LOCATION = 'static'
 
 # HEROKU CONFIG
-
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 ALLOWED_HOSTS += ['movie-chooser-mo1.herokuapp.com/']
