@@ -1,5 +1,5 @@
 # Project specific ignores
-
+rds-ca-2019-root.pem
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
