@@ -10,12 +10,11 @@ from .models import Movie
 def index(request):
     movies = Movie.objects.order_by('?')
 
-    paginator = Paginator(movies, 22)
+    paginator = Paginator(movies, 30)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
-        'movies': movies,
         'page_obj': page_obj,
     }
     return render(request, 'library.html', context=context)

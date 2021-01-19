@@ -21,7 +21,6 @@ def homepage(request):
     return render(request, 'homepage.html', context)
 
 def results(request):
-    print('request', request.GET)
     genre_selection = request.GET.getlist('genre_choice')
     runtime = request.GET.getlist('runtime')[0]
     decade_selection = request.GET.getlist('decade_choice')
@@ -40,7 +39,7 @@ def results(request):
 
     movies = movies.distinct().order_by('-avg_rating')
 
-    paginator = Paginator(movies, 22)
+    paginator = Paginator(movies, 30)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -49,4 +48,4 @@ def results(request):
         'page_obj': page_obj,
     }
 
-    return render(request, 'results.html', context)
+    return render(request, 'results.html', context=context)
