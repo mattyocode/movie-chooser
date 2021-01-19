@@ -10,7 +10,7 @@ from .models import Movie
 def index(request):
     movies = Movie.objects.order_by('?')
 
-    paginator = Paginator(movies, 11)
+    paginator = Paginator(movies, 22)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)

@@ -2,6 +2,7 @@ from random import randint
 
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 from moviechooser.library.models import Movie, Genre
 # from .forms import MovieChoiceForm
@@ -37,9 +38,15 @@ def results(request):
                 _connector=Q.OR)
             )
 
-    movies = movies.distinct().order_by('-avg_rating')[:30]
+    movies = movies.distinct().order_by('-avg_rating')
 
+    paginator = Paginator(movies, 22)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'movies': movies
+        'movies': movies,
+        'page_obj': page_obj,
     }
+
     return render(request, 'results.html', context)
