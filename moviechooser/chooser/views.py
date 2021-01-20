@@ -31,7 +31,6 @@ def results(request):
         movies = Movie.objects.all()
 
     movies = movies.filter(
-                # Q(genre__name__in=genre_selection),
                 Q(runtime__lte=runtime),
                 Q(*[('released__startswith', decade[:3]) for decade in decade_selection],
                 _connector=Q.OR)
@@ -40,9 +39,9 @@ def results(request):
     movies = movies.distinct().order_by('-avg_rating')
 
     paginator = Paginator(movies, 30)
-
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    
     context = {
         'movies': movies,
         'page_obj': page_obj,
