@@ -21,6 +21,9 @@ def homepage(request):
     return render(request, 'homepage.html', context)
 
 def results(request):
+    get_copy = request.GET.copy()
+    parameters = get_copy.pop('page', True) and get_copy.urlencode()
+
     genre_selection = request.GET.getlist('genre_choice')
     runtime = request.GET.getlist('runtime')[0]
     decade_selection = request.GET.getlist('decade_choice')
@@ -43,7 +46,7 @@ def results(request):
     page_obj = paginator.get_page(page_number)
     
     context = {
-        'movies': movies,
+        'parameters': parameters,
         'page_obj': page_obj,
     }
 
