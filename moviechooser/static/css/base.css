@@ -30,20 +30,22 @@ h2 {
 
 .row.no-gutters {
     margin: 1em;
-    display: flex;
-
 }
 
 .col-md-4 {
   text-align: center;
-  display: table-cell;
-  margin: auto auto;
-  flex: 1;
 }
 
-.col-md-8 {
-  flex: 1;
+.col-4 {
+  /* text-align: center; */
+  /* display: table-cell; */
+  margin: auto auto;
+  /* flex: 1; */
 }
+
+/* .col-md-8 {
+  flex: 1;
+} */
 
 .card-img {
   margin: auto;
@@ -230,6 +232,15 @@ label[for="runtime"] {
     }
   }
 
+  @media (max-width: 775px) {
+    .card-title {
+      font-size: small;
+    }
+    .card-text {
+      font-size: x-small;
+    }
+  }
+
 .step-links {
   margin: auto;
   font-family: 'Poppins', sans-serif;
@@ -275,3 +286,4 @@ label[for="runtime"] {
   margin: auto;
   width: 80%;
 }
+
