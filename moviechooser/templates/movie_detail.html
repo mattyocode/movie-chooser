@@ -1,5 +1,5 @@
 {% block content %}
-
+{% load static %}
 <!-- <div class="container"> -->
   <div class="detail-panel">
   <!-- Portfolio Item Row -->
@@ -17,7 +17,17 @@
         <li>Released: {{ year }}</li>
         <li>Genre: {{ genre }}</li>
       </ul>
-      <ul></ul>
+      <ul class="ratings-details">
+        {% if movie.imdb_rating >= 0 %}
+        <li><img class="ratings-logo" src="{% static 'images/imdb.png' %}" alt="IMDB rating">  {{ movie.imdb_rating }}</li>
+        {% endif %}
+        {% if movie.rotten_tomatoes >= 0 %}
+        <li><img class="ratings-logo" src="{% static 'images/rotten.png' %}" alt="IMDB rating">  {{ movie.rotten_tomatoes }}</li>
+        {% endif %}
+        {% if movie.metacritic >= 0 %}
+        <li><img class="ratings-logo" src="{% static 'images/metacritic.png' %}" alt="IMDB rating">  {{ movie.metacritic }}</li>
+        {% endif %}
+      </ul>
       <h5 class="my-5">Average score: {{ movie.avg_rating }}</h5>
     </div>
 

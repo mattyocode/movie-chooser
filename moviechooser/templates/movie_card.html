@@ -11,8 +11,10 @@
                     <p class="card-text">{{ movie.plot }}</p>
 
                     <p class="card-text score">Average Score: {{ movie.avg_rating }}</p>
-                    <a href="#" class="btn btn-primary"><img src="{% static 'images/add.png' %}"></a>
-                    <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary"><img src="{% static 'images/info.png' %}"></a>
+                    <a href="#" class="btn btn-primary">
+                        <img src="{% static 'images/add.png' %}" alt="Add to list"></a>
+                    <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary">
+                        <img src="{% static 'images/info.png' %}" alt="Movie info"></a>
                     </div>
                 </div>
         </div>
