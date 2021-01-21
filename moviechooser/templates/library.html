@@ -3,16 +3,19 @@
 {% block content %}
 
 {% load static %}
+
 <div class="jumbotron">
     <h1 class="display-4 center-subhead">All Movies</h1>
 </div>
 
 <div class="page-container">
+
     {% for movie in page_obj %}
 
         {% include 'movie_card.html' %}
 
     {% endfor %}
+    
 </div>
 
 {% include 'pagination.html' %}

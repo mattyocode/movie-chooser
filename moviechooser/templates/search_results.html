@@ -3,6 +3,7 @@
 {% block content %}
 
 {% load static %}
+
 <div class="jumbotron">
     <h1 class="display-4 center-subhead">Search Results</h1>
 </div>
@@ -10,7 +11,7 @@
 <div class="page-container">
 
     {% if page_obj %}
-    
+
         {% for movie in page_obj %}
 
             {% include 'movie_card.html' %}

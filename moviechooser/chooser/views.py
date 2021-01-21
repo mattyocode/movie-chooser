@@ -20,6 +20,7 @@ def homepage(request):
     }
     return render(request, 'homepage.html', context)
 
+
 def results(request):
     get_copy = request.GET.copy()
     parameters = get_copy.pop('page', True) and get_copy.urlencode()

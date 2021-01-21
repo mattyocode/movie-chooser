@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 {% load static %}
 
 <div class="jumbotron">
@@ -15,7 +16,9 @@
         <h2>Choose genre(s)</h2>
         <p class="sub-heading">Leave blank to select all</p>
         <br>
+        
         <form action="{% url 'chooser:results' %}" method="get">
+
             <div class="choice-buttons">
                 {% for genre in genres %}
                     <input type="checkbox" name="genre_choice" id="{{ genre.id }}" value="{{ genre.name }}">
@@ -29,12 +32,12 @@
         <br>
         <div class="range-slider">
             <label for="runtime">Runtime up to:</label>
-                <div class="keep-row">
-                    <input class="range-slider__range" type="range" id="runtime" 
-                        name="runtime" value="{{ max_runtime }}" min="{{ min_runtime }}" max="{{ max_runtime }}">
-                        <span class="range-slider__value">0</span>
-                        <p>mins</p>
-                </div> 
+            <div class="keep-row">
+                <input class="range-slider__range" type="range" id="runtime" name="runtime" 
+                    value="{{ max_runtime }}" min="{{ min_runtime }}" max="{{ max_runtime }}">
+                    <span class="range-slider__value">0</span>
+                    <p>mins</p>
+            </div> 
         </div>
     </div>
 
@@ -49,7 +52,6 @@
             {% endfor %}
         </div>
         <br>
-
     </div>
 
     <div class="choices-panel">
@@ -57,6 +59,7 @@
     </div>
 
         </form>
+
     </div>
 
 </div>
