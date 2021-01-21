@@ -8,13 +8,30 @@
 </div>
 
 <div class="page-container">
-{% for movie in movies %}
 
-    {% include 'movie_card.html' %}
+    {% if page_obj %}
+    
+        {% for movie in page_obj %}
 
-{% endfor %}
+            {% include 'movie_card.html' %}
+
+        {% endfor %}
+
+        {% include 'pagination.html' %}
+
+    {% else %}
+
+    <div class="choices-panel">
+        <h2 class="center-subhead"><strong>No movies match your search</strong></h2>
+        <h2 class="center-subhead">Try again</h2>
+        <br>
+        <a href="{% url 'chooser:homepage' %}">Back to homepage</a>
+    </div>
+
+    {% endif %}
+
 </div>
 
-<!-- {% include 'pagination.html' %} -->
+
 
 {% endblock %}
