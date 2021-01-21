@@ -50,6 +50,7 @@ h2 {
 .card-img {
   margin: auto;
   display: block;
+  text-align: center;
   /* max-width: 100%;
   min-width: 100%; */
 }
@@ -265,7 +266,13 @@ label[for="runtime"] {
     .page-container {
       width: 90%;
       margin: auto;
-  }
+    }
+    .row.no-gutters {
+      margin: .15em 0.25em;
+    }
+    .card-body {
+      padding: 1em 1.2em;
+    }
   }
 
 .step-links {
