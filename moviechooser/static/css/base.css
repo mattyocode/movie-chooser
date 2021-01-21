@@ -273,6 +273,9 @@ label[for="runtime"] {
     .card-body {
       padding: 1em 1.2em;
     }
+    .card-img {
+      padding: 0.1em;
+    }
   }
 
 .step-links {

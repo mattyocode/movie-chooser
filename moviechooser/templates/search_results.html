@@ -7,10 +7,12 @@
     <h1 class="display-4 center-subhead">Search Results</h1>
 </div>
 
+<div class="page-container">
 {% for movie in movies %}
 
     {% include 'movie_card.html' %}
 
 {% endfor %}
+</div>
 
 {% endblock %}
