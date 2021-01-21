@@ -31,9 +31,16 @@
       <h5 class="my-5">Average score: {{ movie.avg_rating }}</h5>
     </div>
 
-    <div class="back-button">
-      <a href="javascript:history.back()" class="btn btn-primary">Back</a>
+    <div class="detail-buttons">
+      
+      <a href="javascript:history.back()" class="btn btn-primary back">Back</a>
+
+      {% if try_again %}
+      <a href="{% url 'surprise' %}" class="btn btn-primary again">Try again!</a>
+      {% endif %}
+
     </div>
+    
 
   </div>
   <!-- /.row -->

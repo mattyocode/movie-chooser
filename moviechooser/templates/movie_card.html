@@ -1,22 +1,26 @@
 {% load static %}
+
 <div class="centered-element">
     <div class="card mb-3" style="width: 36rem;">
         <div class="row no-gutters">
+
             <div class="col-4">
                 <img class="card-img" src="{{ movie.poster_url }}" alt="{{ movie.title }} poster image">
             </div>
-                <div class="col-8">
-                    <div class="card-body">
+
+            <div class="col-8">
+                <div class="card-body">
                     <h5 class="card-title">{{ movie.title }}</h5>
                     <p class="card-text">{{ movie.plot }}</p>
-
                     <p class="card-text score">Average Score: {{ movie.avg_rating }}</p>
+
                     <a href="#" class="btn btn-primary">
                         <img src="{% static 'images/add.png' %}" alt="Add to list"></a>
                     <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary">
                         <img src="{% static 'images/info.png' %}" alt="Movie info"></a>
-                    </div>
                 </div>
+            </div>
+            
         </div>
     </div>
 </div>

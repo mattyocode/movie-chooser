@@ -26,12 +26,14 @@ def surprise(request):
     else: 
         rand_index = 0
     random_movie = movies[rand_index]
+    try_again = True
     context = {
         'movie': random_movie,
         'actors': random_movie.get_actors(),
         'director': random_movie.get_director(),
         'year': random_movie.get_year(),
         'genre': random_movie.get_genre(),
+        'try_again': try_again,
     }
 
     return render(request, 'surprise.html', context=context)
