@@ -7,7 +7,7 @@
     <div class="col-md-4">
       <img class="img-fluid" src="{{ movie.poster_url }}" alt="{{ movie.title }} poster image">
     </div>
-    
+
     <div class="col-md-8">
       <h3 class="my-3">{{ movie.title }}</h3>
       <p>{{ movie.plot }}</p>
@@ -17,7 +17,8 @@
         <li>Released: {{ year }}</li>
         <li>Genre: {{ genre }}</li>
       </ul>
-      <h5 class="my-5">Movie Chooser score: {{ movie.avg_rating }}</h5>
+      <ul></ul>
+      <h5 class="my-5">Average score: {{ movie.avg_rating }}</h5>
     </div>
 
     <div class="back-button">
