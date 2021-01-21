@@ -34,13 +34,16 @@ def results(request):
     else:
         movies = Movie.objects.all()
 
-    movies = movies.filter(
-                Q(runtime__lte=runtime),
-                Q(*[('released__startswith', decade[:3]) for decade in decade_selection],
-                _connector=Q.OR)
+    movies = (movies
+                .filter(
+                    Q(runtime__lte=runtime),
+                    Q(*[('released__startswith', decade[:3]) for decade in decade_selection],
+                    _connector=Q.OR)
+                )
+                .distinct()
+                .order_by('-avg_rating')
             )
-
-    movies = movies.distinct().order_by('-avg_rating')
+    # movies = movies.distinct().order_by('-avg_rating')
 
     paginator = Paginator(movies, 30)
     page_number = request.GET.get('page')
