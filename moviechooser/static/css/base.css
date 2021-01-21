@@ -87,8 +87,17 @@ body {
     border-radius: 5px;
     margin: 20px 0;
     box-shadow: 5px 10px 18px #444;
-    /* text-align: center; */
 }
+
+.detail-panel {
+  background-color: #eee;
+  color: black;
+  padding: 2em;
+  border-radius: 5px;
+  margin: 1em 0;
+  box-shadow: 5px 10px 18px #444;
+}
+
 .choice-buttons {
     display: flex;
     align-content: flex-start;
@@ -214,6 +223,10 @@ label[for="runtime"] {
     margin: 3% 1%;
   }
 
+  .btn-primary > img {
+    width: 0.5em;
+  }
+
   .btn-primary:hover {
     background: #3DA195;
     border-color: #444;
@@ -239,6 +252,10 @@ label[for="runtime"] {
     .card-text {
       font-size: x-small;
     }
+    .page-container {
+      width: 90%;
+      margin: auto;
+  }
   }
 
 .step-links {
@@ -286,4 +303,3 @@ label[for="runtime"] {
   margin: auto;
   width: 80%;
 }
-

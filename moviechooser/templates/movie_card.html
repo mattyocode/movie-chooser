@@ -1,3 +1,4 @@
+{% load static %}
 <div class="centered-element">
     <div class="card mb-3" style="width: 36rem;">
         <div class="row no-gutters">
@@ -10,8 +11,8 @@
                     <p class="card-text">{{ movie.plot }}</p>
                     <br>
                     <p class="card-text score"><strong>Average Score: {{ movie.avg_rating }}</strong></p>
-                    <a href="#" class="btn btn-primary">Add</a>
-                    <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary">Info</a>
+                    <a href="#" class="btn btn-primary"><img src="{% static 'images/add.png' %}"></a>
+                    <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary"><img src="{% static 'images/info.png' %}"></a>
                     </div>
                 </div>
         </div>
