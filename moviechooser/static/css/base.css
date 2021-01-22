@@ -63,8 +63,18 @@ h2 {
   font-size: small;
 }
 
+.card-body > .btn-primary {
+  width: 4em;
+  height: 3.5em;
+}
+
 .btn-primary > img {
-  width: 1.5em;
+  width: 1.5rem;
+}
+
+p.button-text {
+  font-size: x-small;
+  margin: .4em 0 .1em 0;
 }
 
 .card-text.score {

@@ -43,8 +43,7 @@ def results(request):
                 .distinct()
                 .order_by('-avg_rating')
             )
-    # movies = movies.distinct().order_by('-avg_rating')
-
+            
     paginator = Paginator(movies, 30)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
