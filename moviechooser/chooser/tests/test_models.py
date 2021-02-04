@@ -1,7 +1,7 @@
-from django.test import TestCase
-from unittest.mock import patch, Mock
+# from django.test import TestCase
+# from unittest.mock import patch, Mock
 
-from ..models import MovieChoice
+# from ..models import MovieChoice
 
 # class MovieChoiceTest(TestCase):
 

@@ -23,13 +23,16 @@ whitenoise = "^5.2.0"
 [tool.poetry.dev-dependencies]
 selenium = "^3.141.0"
 coverage = {version = "^5.3.1", extras = ["toml"]}
+pytest-cov = "^2.11.1"
+factory-boy = "^3.2.0"
 
 [tool.coverage.paths]
-source = ["moviechooser", "*/site-packages"]
+source = ["moviechooser/*"]
 
 [tool.coverage.run]
 branch = true
 include = ["moviechooser/*"]
+omit = ["*apps.py","*migrations/*","*config*","*tests/*","*urls.py","*wsgi/*","manage.py"]
 
 
 [tool.coverage.report]
