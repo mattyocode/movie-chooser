@@ -4,7 +4,7 @@ from ..models import Movie, Genre, Actor, Director
 
 class MovieModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         """Set up non-modified objects used by all test methods."""
         Movie.objects.create(
             imdbid='test1234',
@@ -84,37 +84,23 @@ class MovieModelTest(TestCase):
         result = movie.get_director()
         self.assertEqual(result, 'Christopher Codeman, David Lint')
 
-    def test_get_shortest_runtime(self):
-        """It returns lowest runtime integer."""
-        movie = Movie.objects.get(imdbid='test1234')
-        movie_2 = Movie.objects.create(
-            imdbid='test7890',
-            title='Tester 2: Test Harder',
-            released='2021-01-15',
-            runtime='111',
-            writer='Check Itt',
-            poster_url='www.example.com/image/location/img2.jpg'
-        )
-        result = movie.get_all_min_runtime()
-        self.assertEqual(result, 100)
-
 
 class GenreModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         """Set up non-modified objects used by all test methods."""
         Genre.objects.create(name='Comedy')
 
     def test_str_returns_title(self):
         """It returns name as string."""
-        genre = Genre.objects.get(id=1)
+        genre = Genre.objects.first()
         result = genre.__str__()
         self.assertEqual(result, 'Comedy')
 
 
 class ActorModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         """Set up non-modified objects used by all test methods."""
         Actor.objects.create(name='Lint Eastwood')
 
@@ -127,7 +113,7 @@ class ActorModelTest(TestCase):
 
 class DirectorModelTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         """Set up non-modified objects used by all test methods."""
         Director.objects.create(name='Christopher Codeman')
 

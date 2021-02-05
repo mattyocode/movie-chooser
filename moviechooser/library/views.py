@@ -40,7 +40,6 @@ def surprise(request):
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, imdbid=pk)
-    print(movie.imdb_rating)
     context = {
         'movie': movie,
         'actors': movie.get_actors(),

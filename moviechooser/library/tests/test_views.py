@@ -18,7 +18,7 @@ class LibraryIndexTest(TestCase):
 
 class LibrarySurpriseTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         """Set up non-modified objects used by all test methods."""
         movie = Movie.objects.create(
             imdbid='test1234',
@@ -57,7 +57,7 @@ class LibrarySurpriseTest(TestCase):
 
 class MovieDetailTest(TestCase):
     @classmethod
-    def setUpTestData(cls):
+    def setUp(cls):
         """Set up non-modified objects used by all test methods."""
         movie = Movie.objects.create(
             imdbid='test1234',
