@@ -1,7 +1,7 @@
 from random import randint
 
 from django.shortcuts import get_object_or_404, render
-from django.db.models import Q
+from django.db.models import Max, Min, Q
 from django.core.paginator import Paginator
 
 from moviechooser.library.models import Movie, Genre
@@ -9,13 +9,14 @@ from moviechooser.library.models import Movie, Genre
 
 def homepage(request):
     genres = Genre.objects.all()
-    sorted_runtimes = [movie.runtime for movie in Movie.objects.order_by('runtime')]
+    max_runtime = list(Movie.objects.aggregate(Max('runtime')).values())[0]
+    min_runtime = list(Movie.objects.aggregate(Min('runtime')).values())[0]
     decades = sorted(set([movie.get_decade() for movie in Movie.objects.all()]), reverse=True)
 
     context = {
         'genres': genres,
-        'min_runtime': sorted_runtimes[0],
-        'max_runtime': sorted_runtimes[-1],
+        'min_runtime': min_runtime,
+        'max_runtime': max_runtime,
         'decades': decades,
     }
     return render(request, 'homepage.html', context)
