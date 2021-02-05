@@ -45,15 +45,6 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
-    def get_year(self):
-        year = self.released.strftime("%Y")
-        return year
-
-    def get_decade(self):
-        decade = self.get_year()
-        decade = decade[:3] + '0s'
-        return decade
-
     def get_genre(self):
         genre_str = ', '.join([genre.name for genre in self.genre.all()])
         return genre_str
@@ -66,4 +57,12 @@ class Movie(models.Model):
         director_str = ', '.join([director.name for director in self.director.all()])
         return director_str
 
+    def get_decade(self):
+        decade = self.get_year()
+        decade = decade[:3] + '0s'
+        return decade
+
+    def get_year(self):
+        year = self.released.strftime("%Y")
+        return year
         
