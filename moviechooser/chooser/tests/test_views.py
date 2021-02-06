@@ -56,24 +56,22 @@ class HomePageIntegratedTest(TestCase):
             released=datetime.date(2000, 1, 1),
             genre=[horror]
         )
-        print('movie1 genre: ', movie1.genre.all())
-        print('movie2 genre: ', movie2.genre.all())
 
     def test_uses_homepage_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'homepage.html')
+        self.assertEqual(response.status_code, 200)
 
     def test_displays_homepage_content(self):
         response = self.client.get('/')
         self.assertContains(response, 'Welcome to Movie Chooser')
 
-    def test_min_runtime_is_correct(self):
+    def test_min_runtime(self):
         response = self.client.get('/')
         self.assertContains(response, 'min="100"')
 
-    def test_max_runtime_is_correct(self):
+    def test_max_runtime(self):
         response = self.client.get('/')
-        print(response.content)
         self.assertContains(response, 'max="150"')
 
     def test_genres_are_displayed(self):
@@ -87,21 +85,57 @@ class HomePageIntegratedTest(TestCase):
         self.assertContains(response, "1980s")
 
 
+class ResultsIntegratedTest(TestCase):
 
+    @classmethod
+    def setUp(cls):
+        comedy = GenreFactory.create(name="comedy")
+        movie1 = MovieFactory.create(
+            title="Funny Tests", 
+            runtime=100,
+            released=datetime.date(1980, 1, 1),
+            genre=[comedy]
+        )
+        horror = GenreFactory.create(name="horror")
+        movie2 = MovieFactory.create(
+            title="Scary Tests", 
+            runtime=150,
+            released=datetime.date(2000, 1, 1),
+            genre=[horror]
+        )
 
-# class ResultsIntegratedTest(TestCase):
+    def test_uses_results_template(self):
+        response = self.client.get('/results/?runtime=200')
+        self.assertTemplateUsed(response, 'results.html')
+        self.assertEqual(response.status_code, 200)
 
-#     @classmethod
-#     def setUp(cls):
-#         comedy = GenreFactory.create(name="comedy")
-#         movie1 = MovieFactory.create()
-#         movie1.genre.add(comedy)
+    def test_displays_results_content(self):
+        response = self.client.get('/results/?runtime=200')     
+        self.assertContains(response, 'Results')
 
-#     def test_uses_results_template(self):
-#         response = self.client.get('/results/')
-#         self.assertTemplateUsed(response, 'results.html')
+    def test_runtime_filters_results(self):
+        """It excludes Scary Tests which exceeds runtime limit."""
+        response = self.client.get('/results/?runtime=125')
+        self.assertContains(response, 'Funny Tests')
+        self.assertNotContains(response, 'Scary Tests')
 
-#     def test_displays_results_content(self):
-#         response = self.client.get('/results/')     
-#         self.assertContains(response, 'Selected Movies')
+    def test_runtime_equal_to_movie(self):
+        """It includes Funny Tests which matches runtime limit."""
+        response = self.client.get('/results/?runtime=100')
+        self.assertContains(response, 'Funny Tests')
+        self.assertNotContains(response, 'Scary Tests')
+
+    def test_runtime_no_results(self):
+        """It excludes Scary Tests which exceeds runtime limit."""
+        response = self.client.get('/results/?runtime=50')
+        self.assertNotContains(response, 'Funny Tests')
+        self.assertNotContains(response, 'Scary Tests')
+        self.assertContains(response, 'No movies match your search')
+
+    def test_genre_filters_results(self):
+        """It only includes Funny Tests which is a comedy."""
+        response = self.client.get('/results/?runtime=200&genre_choice=comedy')
+        self.assertContains(response, 'Funny Tests')
+        self.assertNotContains(response, 'Scary Tests')
+
 
