@@ -6,7 +6,7 @@ from django.db.models import Q
 
 from .models import Movie
 
-# Create your views here.
+
 def index(request):
     movies = Movie.objects.order_by('?')
 

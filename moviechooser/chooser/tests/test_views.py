@@ -1,6 +1,6 @@
 import datetime
 
-from django.urls import resolve
+from django.urls import resolve, reverse
 from django.http import HttpRequest
 from django.test import TestCase
 
@@ -108,69 +108,99 @@ class ResultsIntegratedTest(TestCase):
             genre=[horror]
         )
 
+    def results_url_for_selections(self, **kwargs):
+        url = reverse('chooser:results')
+        default_runtime = 200
+        query_string = ''
+        if 'runtime' not in kwargs:
+            kwargs['runtime'] = default_runtime
+
+        for k, v in kwargs.items():
+            if type(v) != list:
+                v = [v]
+            for i in range(len(v)):
+                query_item = k + '=' + str(v[i]) + '&'
+                query_string += query_item
+
+        return f"{url}?{query_string}"
+
     def test_results_status_code(self):
         """It returns 200 status code."""
-        response = self.client.get('/results/?runtime=200')
+        url = self.results_url_for_selections()
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_uses_results_template(self):
-        response = self.client.get('/results/?runtime=200')
+        url = self.results_url_for_selections()
+        response = self.client.get(url)
         self.assertTemplateUsed(response, 'results.html')
 
     def test_displays_results_content(self):
-        response = self.client.get('/results/?runtime=200')     
+        url = self.results_url_for_selections()
+        response = self.client.get(url)  
         self.assertContains(response, 'Results')
 
     def test_runtime_filters_results(self):
         """It excludes Scary Tests which exceeds runtime limit."""
-        response = self.client.get('/results/?runtime=125')
+        selection = {'runtime': 125}
+        url = self.results_url_for_selections(**selection)
+        response = self.client.get(url)
         self.assertContains(response, 'Funny Tests')
         self.assertNotContains(response, 'Scary Tests')
 
     def test_runtime_equal_to_movie(self):
         """It includes Funny Tests which matches runtime limit."""
-        response = self.client.get('/results/?runtime=100')
+        selection = {'runtime': 100}
+        url = self.results_url_for_selections(**selection)
+        response = self.client.get(url)
         self.assertContains(response, 'Funny Tests')
         self.assertNotContains(response, 'Scary Tests')
 
     def test_runtime_no_results(self):
         """It excludes Scary Tests which exceeds runtime limit."""
-        response = self.client.get('/results/?runtime=50')
+        selection = {'runtime': 50}
+        url = self.results_url_for_selections(**selection)
+        response = self.client.get(url)
         self.assertNotContains(response, 'Funny Tests')
         self.assertNotContains(response, 'Scary Tests')
         self.assertContains(response, 'No movies match your search')
 
     def test_genre_filters_results(self):
         """It only includes Funny Tests which has comedy as genre."""
-        response = self.client.get('/results/?runtime=200&genre_choice=comedy')
+        selection = {'genre_choice': 'comedy'}
+        url = self.results_url_for_selections(**selection)
+        response = self.client.get(url)
         self.assertContains(response, 'Funny Tests')
         self.assertNotContains(response, 'Scary Tests')
 
     def test_two_genres_selected(self):
         """It returns movies from two genres."""
-        response = self.client.get(
-            '/results/?runtime=200&genre_choice=comedy&genre_choice=horror'
-        )
+        selection = {'genre_choice': ['comedy', 'horror']}
+        url = self.results_url_for_selections(**selection)
+        response = self.client.get(url)
         self.assertContains(response, 'Funny Tests')
         self.assertContains(response, 'Scary Tests')
     
     def test_decade_filters_results(self):
         """It only includes Scary Tests which has 2000 as released."""
-        response = self.client.get('/results/?runtime=200&decade_choice=2000s')
+        selection = {'decade_choice': '2000s'}
+        url = self.results_url_for_selections(**selection)
+        response = self.client.get(url)
         self.assertContains(response, 'Scary Tests')
         self.assertNotContains(response, 'Funny Tests')
 
     def test_two_decades_selected(self):
         """It returns movies from two decades."""
-        response = self.client.get(
-            '/results/?runtime=200&decade_choice=1980s&decade_choice=2000s'
-        )
+        selection = {'decade_choice': ['1980s', '2000s']}
+        url = self.results_url_for_selections(**selection)
+        response = self.client.get(url)
         self.assertContains(response, 'Funny Tests')
         self.assertContains(response, 'Scary Tests')
 
     def test_paginator_under_30_results(self):
         """It doesn't provide page navigation links with single page of results."""
-        response = self.client.get('/results/?runtime=200')
+        url = self.results_url_for_selections()
+        response = self.client.get(url)        
         self.assertContains(response, 'Page 1 of 1.')
         self.assertNotContains(response, 'page=2')
         self.assertNotContains(response, 'last &raquo;')
@@ -178,7 +208,8 @@ class ResultsIntegratedTest(TestCase):
     def test_paginator_under_45_results(self):
         """It includes navigation with more than one page of results."""
         extra_movies = MovieFactory.create_batch(43)
-        response = self.client.get('/results/?runtime=200')
+        url = self.results_url_for_selections()
+        response = self.client.get(url) 
         self.assertContains(response, 'Page 1 of 2.')
         self.assertContains(response, 'page=2')
         self.assertContains(response, 'last &raquo;')
