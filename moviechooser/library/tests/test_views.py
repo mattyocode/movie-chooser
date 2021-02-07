@@ -51,14 +51,7 @@ class LibraryIndexTest(TestCase):
         response = self.client.get('/library/')
         self.assertContains(response, 'All Movies')
 
-    def test_paginator_under_30_results(self):
-        """It doesn't provide page navigation links with single page of results."""
-        response = self.client.get('/library/')
-        self.assertContains(response, 'Page 1 of 1.')
-        self.assertNotContains(response, 'page=2')
-        self.assertNotContains(response, 'last &raquo;')
-
-    def test_paginator_under_45_results(self):
+    def test_paginator_45_results(self):
         """It includes navigation with more than one page of results."""
         extra_movies = MovieFactory.create_batch(43)
         response = self.client.get('/library/')
@@ -125,13 +118,65 @@ class MovieDetailTest(TestCase):
         response = self.client.get('/library/movie/test1234/')
         self.assertEqual(response.status_code, 200)
 
+    def test_movie_detail_404_for_unknown_id(self):
+        """It returns 404 status code with unrecognised movie id."""
+        response = self.client.get('/library/movie/test9999/')
+        self.assertEqual(response.status_code, 404)
+
     def test_uses_movie_detail_template(self):
         response = self.client.get('/library/movie/test1234/')
         self.assertTemplateUsed(response, 'movie_detail.html')
 
-
     def test_displays_selected_movie_detail(self):
         response = self.client.get('/library/movie/test1234/')
-        self.assertContains(response, 'Tester: Revenge of the Test')
         self.assertContains(response, 'Movie Details')
+        self.assertContains(response, 'Tester: Revenge of the Test')
         self.assertContains(response, 'Released: 2021')
+
+
+class SearchResultsTest(TestCase):
+    @classmethod
+    def setUp(cls):
+        """Set up non-modified objects used by all test methods."""
+        movie = MovieFactory.create(
+            imdbid='test9999',
+            title='The Outlier',
+            released='2021-01-01'
+        )
+        MovieFactory.create_batch(44)
+
+    def test_search_results_status_code(self):
+        response = self.client.get('/library/search/?q=')
+        self.assertEqual(response.status_code, 200)
+
+    def test_uses_search_results_template(self):
+        response = self.client.get('/library/search/?q=')
+        self.assertTemplateUsed(response, 'search_results.html')
+
+    def test_returns_title_searched_for_only(self):
+        response = self.client.get('/library/search/?q=the+outlier')
+        self.assertContains(response, 'The Outlier')
+        self.assertNotContains(response, 'Tester')
+
+    def test_returns_titles_searched_for_only(self):
+        response = self.client.get('/library/search/?q=tester')
+        self.assertContains(response, 'Tester')
+        self.assertNotContains(response, 'The Outlier')
+
+    def test_paginator_under_30_results(self):
+        """It doesn't provide page navigation links with single page of results."""
+        response = self.client.get('/library/search/?q=the+outlier')
+        self.assertContains(response, 'Page 1 of 1.')
+        self.assertNotContains(response, 'page=2')
+        self.assertNotContains(response, 'last &raquo;')
+
+    def test_paginator_45_results(self):
+        """It includes navigation with more than one page of results."""
+        response = self.client.get('/library/search/?q=tester')
+        self.assertContains(response, 'Page 1 of 2.')
+        self.assertContains(response, 'page=2')
+        self.assertContains(response, 'last &raquo;')
+
+
+
+    

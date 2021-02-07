@@ -56,7 +56,7 @@ def search_results(request):
     query = request.GET.get('q')
     movies = Movie.objects.filter(
         Q(title__icontains=query)
-        )
+        ).order_by('-avg_rating')
 
     paginator = Paginator(movies, 30)
 
