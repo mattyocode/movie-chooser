@@ -57,10 +57,14 @@ class HomePageIntegratedTest(TestCase):
             genre=[horror]
         )
 
+    def test_homepage_status_code(self):
+        """It returns 200 status code."""
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
     def test_uses_homepage_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'homepage.html')
-        self.assertEqual(response.status_code, 200)
 
     def test_displays_homepage_content(self):
         response = self.client.get('/')
@@ -104,10 +108,14 @@ class ResultsIntegratedTest(TestCase):
             genre=[horror]
         )
 
+    def test_results_status_code(self):
+        """It returns 200 status code."""
+        response = self.client.get('/results/?runtime=200')
+        self.assertEqual(response.status_code, 200)
+
     def test_uses_results_template(self):
         response = self.client.get('/results/?runtime=200')
         self.assertTemplateUsed(response, 'results.html')
-        self.assertEqual(response.status_code, 200)
 
     def test_displays_results_content(self):
         response = self.client.get('/results/?runtime=200')     
@@ -133,9 +141,46 @@ class ResultsIntegratedTest(TestCase):
         self.assertContains(response, 'No movies match your search')
 
     def test_genre_filters_results(self):
-        """It only includes Funny Tests which is a comedy."""
+        """It only includes Funny Tests which has comedy as genre."""
         response = self.client.get('/results/?runtime=200&genre_choice=comedy')
         self.assertContains(response, 'Funny Tests')
         self.assertNotContains(response, 'Scary Tests')
+
+    def test_two_genres_selected(self):
+        """It returns movies from two genres."""
+        response = self.client.get(
+            '/results/?runtime=200&genre_choice=comedy&genre_choice=horror'
+        )
+        self.assertContains(response, 'Funny Tests')
+        self.assertContains(response, 'Scary Tests')
+    
+    def test_decade_filters_results(self):
+        """It only includes Scary Tests which has 2000 as released."""
+        response = self.client.get('/results/?runtime=200&decade_choice=2000s')
+        self.assertContains(response, 'Scary Tests')
+        self.assertNotContains(response, 'Funny Tests')
+
+    def test_two_decades_selected(self):
+        """It returns movies from two decades."""
+        response = self.client.get(
+            '/results/?runtime=200&decade_choice=1980s&decade_choice=2000s'
+        )
+        self.assertContains(response, 'Funny Tests')
+        self.assertContains(response, 'Scary Tests')
+
+    def test_paginator_under_30_results(self):
+        """It doesn't provide page navigation links with single page of results."""
+        response = self.client.get('/results/?runtime=200')
+        self.assertContains(response, 'Page 1 of 1.')
+        self.assertNotContains(response, 'page=2')
+        self.assertNotContains(response, 'last &raquo;')
+
+    def test_paginator_under_45_results(self):
+        """It includes navigation with more than one page of results."""
+        extra_movies = MovieFactory.create_batch(43)
+        response = self.client.get('/results/?runtime=200')
+        self.assertContains(response, 'Page 1 of 2.')
+        self.assertContains(response, 'page=2')
+        self.assertContains(response, 'last &raquo;')
 
 
