@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'moviechooser.library.apps.LibraryConfig',
     'moviechooser.chooser.apps.ChooserConfig',
+    'moviechooser.lists.apps.ListsConfig',
 ]
 
 MIDDLEWARE = [
