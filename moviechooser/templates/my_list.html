@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="jumbotron">
+    <h1 class="display-4 center-subhead">My List</h1>
+</div>
+
+<div class="page-container">
+
+    <table id="my_list_table">
+        <tr><td> {{ new_movie_item }} </td></tr>
+    </table>
+
+</div>
+
+
+
+{% endblock %}

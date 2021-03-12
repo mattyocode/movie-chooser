@@ -1,7 +1,9 @@
 from django.db import models
 
 # Create your models here.
-class List(models.Model):
+class Item(models.Model):
 
-    def create_new():
-        pass 
+    # user = 
+    title = models.CharField(max_length=200)
+    # date_added =
+    # watched = 

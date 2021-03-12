@@ -4,4 +4,6 @@ from django.http import HttpResponse
 # Create your views here.
 
 def my_list(request):
-    return HttpResponse('Movie list')
+    return render(request, 'my_list.html', {
+        'new_movie_item': request.POST.get('title', ''),
+    })
