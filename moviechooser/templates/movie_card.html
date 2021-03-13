@@ -14,9 +14,16 @@
                     <p class="card-text">{{ movie.plot }}</p>
                     <p class="card-text score">Average Score: {{ movie.avg_rating }}</p>
 
-                    <a href="#" class="btn btn-primary">
+                    <!-- <a href="#" class="btn btn-primary">
                         <img src="{% static 'images/add.png' %}" alt="Add to list">
-                        <p class="button-text">List</p></a>
+                        <p class="button-text">List</p></a> -->
+                    <form action="{% url 'lists:my_list' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary" value={{ movie.imdbid }}>
+                            <img src="{% static 'images/add.png' %}" alt="Add to list">
+                            <p class="button-text">List</p></button>
+                    </form>
+
                     <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary">
                         <img src="{% static 'images/info.png' %}" alt="Movie info">
                         <p class="button-text">More</p></a>
