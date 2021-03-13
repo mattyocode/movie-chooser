@@ -10,6 +10,6 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'my_list.html')
 
     def test_can_save_POST_request(self):
-        data = {'title': 'Fake Movie'}
+        data = {'imdbid': 'abc123'}
         response = self.client.post(reverse('lists:my_list'), data)
-        self.assertIn('Fake Movie', response.content.decode())
+        self.assertIn('abc123', response.content.decode())

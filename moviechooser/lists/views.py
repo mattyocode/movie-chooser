@@ -5,5 +5,5 @@ from django.http import HttpResponse
 
 def my_list(request):
     return render(request, 'my_list.html', {
-        'new_movie_item': request.POST.get('title', ''),
+        'new_movie_item': request.POST.get('imdbid', ''),
     })
