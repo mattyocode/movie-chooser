@@ -15,6 +15,10 @@ class ListViewTest(TestCase):
         response = self.client.get(reverse('lists:my_list'))
         self.assertIn('abc123', response.content.decode())
 
+    def test_displays_no_movies_message_if_none_added(self):
+        response = self.client.get(reverse('lists:my_list'))
+        self.assertIn('No movies added to list', response.content.decode())        
+
     def test_can_save_POST_request(self):
         data = {'imdbid': 'abc123'}
         response = self.client.post(reverse('lists:my_list'), data)

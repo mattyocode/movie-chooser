@@ -11,13 +11,8 @@ def my_list(request):
         return HttpResponse('<script>history.back();</script>')
     else:
         movie_items = Item.objects.all()
-        if len(movie_items) > 0:
-            context = {
-                'movie_items': movie_items
-            }
-        else:
-            context = {
-                'movie_items': 'No movies added to list'
-            }
+        context = {
+            'movie_items': movie_items
+        }
 
     return render(request, 'my_list.html', context)
