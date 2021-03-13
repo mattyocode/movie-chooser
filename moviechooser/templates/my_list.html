@@ -11,7 +11,9 @@
 <div class="page-container">
 
     <table id="my_list_table">
-        <tr><td> {{ movie_item }} </td></tr>
+        {% for movie_item in movie_items %}
+        <tr><td> {{ movie_item.imdbid }} </td></tr>
+        {% endfor %}
     </table>
 
 </div>
