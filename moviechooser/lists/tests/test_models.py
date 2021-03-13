@@ -21,3 +21,19 @@ class ItemModelTest(TestCase):
         second_saved_item = saved_items[1]
         self.assertEqual(first_saved_item.imdbid, 'abc123')
         self.assertEqual(second_saved_item.imdbid, 'xyz098')
+
+    # def test_returns_title(self):
+    #     movie = Movie.objects.create(
+    #         imdbid='test1234',
+    #         title='Tester',
+    #         released='2021-01-14',
+    #         runtime='100',
+    #         writer='Check Itt',
+    #         poster_url='www.example.com/image/location/img.jpg',
+    #     )
+
+    #     item = Item()
+    #     item.imdbid = 'test123'
+    #     item.save()
+
+    #     self.assertEqual('Tester', item.__str__)

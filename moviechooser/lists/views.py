@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 
+from moviechooser.library.models import Movie
 from moviechooser.lists.models import Item
+
 
 # Create your views here.
 
