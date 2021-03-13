@@ -19,7 +19,7 @@
                         <p class="button-text">List</p></a> -->
                     <form action="{% url 'lists:my_list' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-primary" value={{ movie.imdbid }}>
+                        <button type="submit" class="btn btn-primary" name="imdbid" value={{ movie.imdbid }}>
                             <img src="{% static 'images/add.png' %}" alt="Add to list">
                             <p class="button-text">List</p></button>
                     </form>
