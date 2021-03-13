@@ -9,7 +9,10 @@ from moviechooser.lists.models import Item
 
 def my_list(request):
     if request.method == 'POST':
-        Item.objects.create(imdbid=request.POST['imdbid'])
+        item = Item.objects.create(imdbid=request.POST['imdbid'])
+        print(item)
+        item.movie = Movie.objects.get(imdbid=item)
+        
         return HttpResponse('<script>history.back();</script>')
     else:
         movie_items = Item.objects.all()
