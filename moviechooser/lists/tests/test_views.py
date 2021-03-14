@@ -1,3 +1,6 @@
+from datetime import datetime
+from unittest import mock
+
 from django.test import TestCase
 from django.urls import reverse
 
@@ -40,6 +43,21 @@ class ListViewTest(TestCase):
         Item.objects.create(imdbid='test1234', movie=movie)
         response = self.client.get(reverse('lists:my_list'))
         self.assertIn('Tester', response.content.decode())
+
+    @mock.patch('django.utils.timezone.now', lambda: datetime(2018, 6, 1))
+    def test_displays_time_item_added(self):
+        movie = Movie.objects.create(
+            imdbid='test1234',
+            title='Tester: Revenge of the Test',
+            released='2021-01-14',
+            runtime='100',
+            writer='Check Itt',
+            poster_url='www.example.com/image/location/img.jpg',
+        )
+        Item.objects.create(imdbid='test1234', movie=movie)
+        response = self.client.get(reverse('lists:my_list'))
+        self.assertIn('2018', response.content.decode())
+
 
 class ListAddTest(TestCase):
 

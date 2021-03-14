@@ -17,8 +17,9 @@ class ItemModelTest(TestCase):
         saved_items = Item.objects.all()
         self.assertEqual(saved_items.count(), 2)
 
-        first_saved_item = saved_items[0]
-        second_saved_item = saved_items[1]
+        # order is reversed because model orders by newest first
+        first_saved_item = saved_items[1]
+        second_saved_item = saved_items[0]
         self.assertEqual(first_saved_item.imdbid, 'abc123')
         self.assertEqual(second_saved_item.imdbid, 'xyz098')
 
