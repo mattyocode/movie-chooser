@@ -12,16 +12,7 @@ class ListViewTest(TestCase):
         self.assertTemplateUsed(response, 'my_list.html')
 
     def test_displays_items(self):
-        Item.objects.create(imdbid='abc123')
-        response = self.client.get(reverse('lists:my_list'))
-        self.assertIn('abc123', response.content.decode())
-
-    def test_displays_no_movies_message_if_none_added(self):
-        response = self.client.get(reverse('lists:my_list'))
-        self.assertIn('No movies added to list', response.content.decode())
-
-    def test_displays_movie_title_in_my_list_page(self):
-        Movie.objects.create(
+        movie = Movie.objects.create(
             imdbid='test1234',
             title='Tester: Revenge of the Test',
             released='2021-01-14',
@@ -29,9 +20,26 @@ class ListViewTest(TestCase):
             writer='Check Itt',
             poster_url='www.example.com/image/location/img.jpg',
         )
-        Item.objects.create(imdbid='test1234')
+        Item.objects.create(imdbid='test1234', movie=movie)
         response = self.client.get(reverse('lists:my_list'))
         self.assertIn('test1234', response.content.decode())
+
+    def test_displays_no_movies_message_if_none_added(self):
+        response = self.client.get(reverse('lists:my_list'))
+        self.assertIn('No movies added to list', response.content.decode())
+
+    def test_displays_movie_title_in_my_list_page(self):
+        movie = Movie.objects.create(
+            imdbid='test1234',
+            title='Tester: Revenge of the Test',
+            released='2021-01-14',
+            runtime='100',
+            writer='Check Itt',
+            poster_url='www.example.com/image/location/img.jpg',
+        )
+        Item.objects.create(imdbid='test1234', movie=movie)
+        response = self.client.get(reverse('lists:my_list'))
+        self.assertIn('Tester', response.content.decode())
 
 class ListAddTest(TestCase):
 

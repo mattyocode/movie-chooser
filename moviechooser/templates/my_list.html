@@ -14,7 +14,42 @@
 
     <table id="my_list_table">
         {% for list_item in list_items %}
-        <tr><td> {{ list_item.imdbid }} </td></tr>
+
+        
+        <div class="centered-element">
+            <div class="card mb-3" style="width: 36rem;">
+                <div class="row no-gutters">
+        
+                    <div class="col-4">
+                        <img class="card-img" src="{{ list_item.movie.poster_url }}" alt="{{ movie.title }} poster image">
+                    </div>
+        
+                    <div class="col-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ list_item.movie.title }}</h5>
+                            <p class="card-text">{{ list_item.movie.plot }}</p>
+                            <p class="card-text score">Average Score: {{ list_item.movie.avg_rating }}</p>
+        
+                            <!-- <a href="#" class="btn btn-primary">
+                                <img src="{% static 'images/add.png' %}" alt="Add to list">
+                                <p class="button-text">List</p></a> -->
+                            <form action="{% url 'lists:my_list' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary" name="imdbid" value={{ movie.imdbid }}>
+                                    <img src="{% static 'images/add.png' %}" alt="Add to list">
+                                    <p class="button-text">List</p></button>
+                            </form>
+        
+                            <a href="{% url 'detail' list_item.movie.imdbid %}" class="btn btn-primary">
+                                <img src="{% static 'images/info.png' %}" alt="Movie info">
+                                <p class="button-text">More</p></a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
         {% endfor %}
     </table>
 
@@ -25,7 +60,7 @@
 <h2 class="center-subhead"><strong>No movies added to list</strong></h2>
 
 {% endif %}
-<!-- 
+<!-- d
 {% endblock %}
 
 {% if page_obj %}

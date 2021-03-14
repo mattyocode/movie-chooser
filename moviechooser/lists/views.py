@@ -15,7 +15,6 @@ def my_list(request):
         return HttpResponse('<script>history.back();</script>')
     else:
         list_items = Item.objects.all()
-
         context = {
             'list_items': list_items
         }
