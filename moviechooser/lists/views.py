@@ -20,3 +20,6 @@ def my_list(request):
         }
 
     return render(request, 'my_list.html', context)
+
+# def remove_item(request, pk):
+#     if request.method == "POST":

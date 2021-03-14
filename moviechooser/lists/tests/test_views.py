@@ -82,3 +82,17 @@ class ListAddTest(TestCase):
         self.assertEqual(Item.objects.count(), 0)
 
 
+class ListRemoveTest(TestCase):
+
+    def test_can_remove_from_list(self):
+        movie = Movie.objects.create(
+            imdbid='test1234',
+            title='Tester: Revenge of the Test',
+            released='2021-01-14',
+            runtime='100',
+            writer='Check Itt',
+            poster_url='www.example.com/image/location/img.jpg',
+        )
+        item = Item.objects.create(imdbid='test1234', movie=movie)
+        response = self.client.get(reverse(f'lists:remove/{item.id}'))
+        self.assertNotIn('Tester', response.content.decode())
