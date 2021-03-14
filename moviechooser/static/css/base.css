@@ -157,10 +157,8 @@ h2 {
   width: 1.5rem;
 }
 
-.added {
-  background-color: var(--clr-grey-5);
-  color:transparent;
-  border: none;
+.remove > p.button-text {
+  width: 3rem;
 }
 
 p.button-text {
@@ -170,6 +168,12 @@ p.button-text {
 
 .card-text.score {
   font-weight: bolder;
+}
+
+.added {
+  background-color: var(--clr-grey-5);
+  color:transparent;
+  border: none;
 }
 
 

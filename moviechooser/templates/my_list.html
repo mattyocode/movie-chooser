@@ -31,11 +31,11 @@
                             <p class="card-text score">Average Score: {{ list_item.movie.avg_rating }}</p>
                             <p class="card-text">Added on: {{ list_item.date_added }}</p>
         
-                            <form action="{% url 'lists:my_list' %}" method="post">
+                            <form action="{% url 'lists:remove' list_item.id %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-primary" name="imdbid" value={{ movie.imdbid }}>
-                                    <img src="{% static 'images/add.png' %}" alt="Add to list">
-                                    <p class="button-text">List</p></button>
+                                <button type="submit" class="btn btn-primary remove" name="remove" value={{ list_item.id }}>
+                                    <img src="{% static 'images/add.png' %}" alt="Remove from list">
+                                    <p class="button-text">Remove</p></button>
                             </form>
         
                             <a href="{% url 'detail' list_item.movie.imdbid %}" class="btn btn-primary">

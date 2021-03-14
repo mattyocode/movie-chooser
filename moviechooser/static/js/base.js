@@ -16,4 +16,20 @@ var rangeSlider = function(){
     });
   };
   
-  rangeSlider();
+rangeSlider();
+
+const addedToListToggle = function(){
+
+  const listBtns = document.querySelectorAll('.list-btn');
+
+  listBtns.forEach((btn) => {
+
+    btn.addEventListener('click', function(){
+      btn.classList.add('added');
+    })
+
+  })
+
+};
+
+addedToListToggle();

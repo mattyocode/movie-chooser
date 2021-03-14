@@ -9,9 +9,9 @@ from moviechooser.lists.models import Item
 
 def my_list(request):
     if request.method == 'POST':
-        item_id = request.POST['imdbid']
-        movie = Movie.objects.get(imdbid=item_id)
-        item = Item.objects.create(imdbid=item_id, movie=movie)
+        item_imdbid = request.POST['imdbid']
+        movie = Movie.objects.get(imdbid=item_imdbid)
+        item = Item.objects.create(imdbid=item_imdbid, movie=movie)
         return HttpResponse('<script>history.back();</script>')
     else:
         list_items = Item.objects.all()
@@ -21,5 +21,8 @@ def my_list(request):
 
     return render(request, 'my_list.html', context)
 
-# def remove_item(request, pk):
-#     if request.method == "POST":
+def remove_item(request, pk):
+    if request.method == "POST":
+        item = Item.objects.get(id=pk)
+        item.delete()
+        return redirect('lists:my_list')

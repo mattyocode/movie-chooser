@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from moviechooser.library.models import Movie
-from moviechooser.lists.views import my_list
+from moviechooser.lists.views import my_list, remove_item
 from moviechooser.lists.models import Item
 
 class ListViewTest(TestCase):
