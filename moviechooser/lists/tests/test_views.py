@@ -36,12 +36,20 @@ class ListViewTest(TestCase):
 class ListAddTest(TestCase):
 
     def test_can_save_POST_request(self):
-        data = {'imdbid': 'abc123'}
+        Movie.objects.create(
+            imdbid='test1234',
+            title='Tester: Revenge of the Test',
+            released='2021-01-14',
+            runtime='100',
+            writer='Check Itt',
+            poster_url='www.example.com/image/location/img.jpg',
+        )
+        data = {'imdbid': 'test1234'}
         response = self.client.post(reverse('lists:my_list'), data)
 
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
-        self.assertEqual(new_item.imdbid, 'abc123')
+        self.assertEqual(new_item.imdbid, 'test1234')
 
     def test_doesnt_save_when_not_POST_request(self):
         response = self.client.get(reverse('lists:my_list'))

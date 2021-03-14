@@ -10,11 +10,11 @@
 
 <div class="page-container">
 
-{% if movie_items %}
+{% if list_items %}
 
     <table id="my_list_table">
-        {% for movie_item in movie_items %}
-        <tr><td> {{ movie_item.imdbid }} </td></tr>
+        {% for list_item in list_items %}
+        <tr><td> {{ list_item.imdbid }} </td></tr>
         {% endfor %}
     </table>
 
