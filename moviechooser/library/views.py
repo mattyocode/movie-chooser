@@ -4,11 +4,24 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 
+from moviechooser.lists.models import Item
 from .models import Movie
 
 
+
 def index(request):
-    movies = Movie.objects.order_by('?')
+    # movies = Movie.objects.order_by('?')
+    movies = Movie.objects.all()
+    items = Item.objects.all()
+    item_imdbid = set()
+    for item in items:
+        item_imdbid.add(item.imdbid)
+
+    for movie in movies:
+        if movie.imdbid in item_imdbid:
+            movie.added = True
+        else:
+            movie.added = False
 
     paginator = Paginator(movies, 30)
 

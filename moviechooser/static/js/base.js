@@ -16,20 +16,24 @@ var rangeSlider = function(){
     });
   };
   
-rangeSlider();
+  rangeSlider();
 
-const addedToListToggle = function(){
+// var addedToListToggle = function(){
 
-  const listBtns = document.querySelectorAll('.list-btn');
+//   var listBtns = document.querySelectorAll('.list-btn');
+//   var cards = document.querySelectorAll('.card-body');
 
-  listBtns.forEach((btn) => {
 
-    btn.addEventListener('click', function(){
-      btn.classList.add('added');
-    })
+//   listBtns.forEach(function(btn){
 
-  })
+//     btn.addEventListener('click', event => {
+//       const cardId = e.currentTarget.parentElement.id;
+//       console.log('test');
+//       btn.classList.toggle('added');
+//     })
 
-};
+//   })
 
-addedToListToggle();
+// };
+
+// addedToListToggle();

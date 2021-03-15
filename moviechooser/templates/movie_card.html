@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-8">
-                <div class="card-body">
+                <div class="card-body"  id={{ movie.imdbid }}>
                     <h5 class="card-title">{{ movie.title }}</h5>
                     <p class="card-text">{{ movie.plot }}</p>
                     <p class="card-text score">Average Score: {{ movie.avg_rating }}</p>
@@ -19,9 +19,15 @@
                         <p class="button-text">List</p></a> -->
                     <form action="{% url 'lists:my_list' %}" method="post">
                         {% csrf_token %}
+                        {% if not movie.added %}
                         <button type="submit" class="btn btn-primary list-btn" name="imdbid" value={{ movie.imdbid }}>
                             <img src="{% static 'images/add.png' %}" alt="Add to list">
                             <p class="button-text">List</p></button>
+                        {% else %}
+                        <button class="btn btn-primary added" name="added">
+                            <img src="{% static 'images/add.png' %}" alt="Added to list">
+                            <p class="button-text">Added</p></button>
+                        {% endif %}
                     </form>
 
                     <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary">
