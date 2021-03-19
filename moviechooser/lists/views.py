@@ -12,6 +12,7 @@ def my_list(request):
         item_imdbid = request.POST['imdbid']
         movie = Movie.objects.get(imdbid=item_imdbid)
         item = Item.objects.create(imdbid=item_imdbid, movie=movie)
+        request.session['from_list'] = True
         return redirect(request.META.get('HTTP_REFERER'))
     else:
         list_items = Item.objects.all()

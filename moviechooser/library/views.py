@@ -1,5 +1,6 @@
 from random import randint, shuffle
 
+from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
@@ -7,11 +8,14 @@ from django.db.models import Q
 from moviechooser.lists.models import Item
 from .models import Movie
 
-
+MOVIE_ORDER = None
 
 def index(request):
-    # movies = Movie.objects.order_by('?')
-    movies = Movie.objects.all()
+    movies = cache.get('movie_selection')
+    if not movies:
+        movies = Movie.objects.order_by('?')
+        cache.set('movie_selection', movies)
+
     items = Item.objects.all()
     item_imdbid = set()
     for item in items:
