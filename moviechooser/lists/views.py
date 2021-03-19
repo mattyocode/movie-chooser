@@ -24,7 +24,7 @@ def my_list(request):
     return render(request, 'my_list.html', context)
 
 def remove_item(request, pk):
-    if request.method == "POST":
-        item = Item.objects.get(id=pk)
-        item.delete()
-        return redirect(reverse('lists:my_list'))
+    item = Item.objects.get(id=pk)
+    item.delete()
+    return redirect(reverse('lists:my_list'))
+    

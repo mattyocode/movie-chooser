@@ -8,7 +8,6 @@ from django.db.models import Q
 from moviechooser.lists.models import Item
 from moviechooser.library.models import Movie
 
-MOVIE_ORDER = None
 
 def index(request):
     movies = cache.get('movie_selection')

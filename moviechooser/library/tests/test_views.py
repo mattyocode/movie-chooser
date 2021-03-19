@@ -74,6 +74,13 @@ class LibraryIndexTest(TestCase):
         self.assertContains(response, 'page=2')
         self.assertContains(response, 'last &raquo;')
 
+    def test_movies_are_cached(self):
+        MovieFactory.create_batch(20)
+        self.assertEqual(None, cache.get('movie_selection'))
+        response = self.client.get(reverse('index'))
+        self.assertEqual(len(cache.get('movie_selection')), 20)        
+
+
 class LibraryIndexItemsTest(TestCase):
     
     def tearDown(self):
@@ -97,8 +104,8 @@ class LibraryIndexItemsTest(TestCase):
     def test_page_includes_add_and_added(self):
         """Response contains 'add to list' and 'added to list' when
         results contains some movies linked to items."""
-        movies = MovieFactory.create()
-        items = ItemFactory.create()
+        item = ItemFactory.create()
+        movie = MovieFactory.create()
         response = self.client.get(reverse('index'))
         self.assertContains(response, "Added to list")
         self.assertContains(response, "Add to list")

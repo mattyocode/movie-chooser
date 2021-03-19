@@ -100,5 +100,5 @@ class ListRemoveTest(TestCase):
             poster_url='www.example.com/image/location/img.jpg',
         )
         item = Item.objects.create(imdbid='test1234', movie=movie)
-        response = self.client.post(reverse(f'lists:remove', args=[f'{item.id}']))
+        response = self.client.post(reverse('lists:remove', args=[f'{item.id}']))
         self.assertNotIn('Tester', response.content.decode())
