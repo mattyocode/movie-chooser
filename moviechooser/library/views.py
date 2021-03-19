@@ -16,16 +16,19 @@ def index(request):
         movies = Movie.objects.order_by('?')
         cache.set('movie_selection', movies)
 
-    items = Item.objects.all()
-    item_imdbid = set()
-    for item in items:
-        item_imdbid.add(item.imdbid)
+    try:
+        items = Item.objects.all()
+        item_imdbid = set()
+        for item in items:
+            item_imdbid.add(item.imdbid)
 
-    for movie in movies:
-        if movie.imdbid in item_imdbid:
-            movie.added = True
-        else:
-            movie.added = False
+        for movie in movies:
+            if movie.imdbid in item_imdbid:
+                movie.added = True
+            else:
+                movie.added = False
+    except:
+        pass
 
     paginator = Paginator(movies, 30)
 
