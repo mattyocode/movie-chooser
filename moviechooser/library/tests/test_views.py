@@ -8,8 +8,8 @@ from django.test import TestCase
 import factory
 from factory import fuzzy
 
-from ..views import index
-from ..models import Genre, Movie
+from moviechooser.library.views import index
+from moviechooser.library.models import Genre, Movie
 
 class GenreFactory(factory.django.DjangoModelFactory):
     class Meta:

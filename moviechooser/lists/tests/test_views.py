@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest import mock
 
 from django.test import TestCase
@@ -44,7 +44,10 @@ class ListViewTest(TestCase):
         response = self.client.get(reverse('lists:my_list'))
         self.assertIn('Tester', response.content.decode())
 
-    @mock.patch('django.utils.timezone.now', lambda: datetime(2018, 6, 1))
+    @mock.patch(
+        'django.utils.timezone.now', 
+        lambda: datetime(2018, 6, 1, 0, 0, 0, tzinfo=timezone.utc)
+        )
     def test_displays_time_item_added(self):
         movie = Movie.objects.create(
             imdbid='test1234',
