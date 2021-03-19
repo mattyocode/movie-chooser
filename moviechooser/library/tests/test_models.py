@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ..models import Movie, Genre, Actor, Director
+from moviechooser.library.models import Movie, Genre, Actor, Director
 
 class MovieModelTest(TestCase):
     @classmethod

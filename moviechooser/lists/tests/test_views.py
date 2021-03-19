@@ -70,8 +70,11 @@ class ListAddTest(TestCase):
             writer='Check Itt',
             poster_url='www.example.com/image/location/img.jpg',
         )
-        data = {'imdbid': 'test1234'}
-        response = self.client.post(reverse('lists:my_list'), data)
+        response = self.client.post(
+            reverse('lists:my_list'), 
+            {'imdbid': 'test1234'},
+            HTTP_REFERER = reverse('index')
+            )
 
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
@@ -94,5 +97,5 @@ class ListRemoveTest(TestCase):
             poster_url='www.example.com/image/location/img.jpg',
         )
         item = Item.objects.create(imdbid='test1234', movie=movie)
-        response = self.client.get(reverse(f'lists:remove/{item.id}'))
+        response = self.client.post(reverse(f'lists:remove', args=[f'{item.id}']))
         self.assertNotIn('Tester', response.content.decode())

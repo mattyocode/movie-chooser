@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
 
 from moviechooser.lists.models import Item
-from .models import Movie
+from moviechooser.library.models import Movie
 
 MOVIE_ORDER = None
 

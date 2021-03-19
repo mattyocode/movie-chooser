@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 
 from moviechooser.library.models import Movie
@@ -26,4 +27,4 @@ def remove_item(request, pk):
     if request.method == "POST":
         item = Item.objects.get(id=pk)
         item.delete()
-        return redirect('lists:my_list')
+        return redirect(reverse('lists:my_list'))

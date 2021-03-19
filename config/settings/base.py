@@ -27,34 +27,21 @@ STATICFILES_DIRS = [BASE_DIR / 'moviechooser/static']
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# if 'DJANGO_DEBUG_FALSE' in os.environ:
-#     DEBUG = False
-#     SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-#     ALLOWED_HOSTS = [os.environ['SITENAME']]
-# else:
-#     DEBUG = True
-#     SECRET_KEY = 'insecure_key_for_dev'
-#     ALLOWED_HOSTS = []
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'moviechooser.library.apps.LibraryConfig',
+    'moviechooser.chooser.apps.ChooserConfig',
+    'moviechooser.lists.apps.ListsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'moviechooser.library.apps.LibraryConfig',
-    'moviechooser.chooser.apps.ChooserConfig',
-    'moviechooser.lists.apps.ListsConfig',
 ]
 
 MIDDLEWARE = [
