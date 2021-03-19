@@ -1,6 +1,7 @@
 import datetime
 from unittest.mock import patch
 
+from django.core.cache import cache
 from django.urls import resolve, reverse
 from django.http import HttpRequest
 from django.test import TestCase
@@ -8,6 +9,7 @@ from django.test import TestCase
 import factory
 from factory import fuzzy
 
+from moviechooser.lists.models import Item
 from moviechooser.library.views import index
 from moviechooser.library.models import Genre, Movie
 
@@ -37,7 +39,20 @@ class MovieFactory(factory.django.DjangoModelFactory):
             for genre in extracted:
                 self.genre.add(genre)
 
+class ItemFactory(factory.django.DjangoModelFactory):
+    """Item creates movie instance as foreign key."""
+    class Meta:
+        model = Item
+    
+    imdbid = factory.Sequence(lambda n: 'imdb%s' % n)
+    movie = factory.SubFactory(MovieFactory)
+    date_added = fuzzy.FuzzyDate(datetime.date(2020, 1, 1))
+
 class LibraryIndexTest(TestCase):
+
+    def tearDown(self):
+        MovieFactory.reset_sequence()
+        cache.clear()
 
     def test_library_index_status_code(self):
         response = self.client.get(reverse('index'))
@@ -53,11 +68,40 @@ class LibraryIndexTest(TestCase):
 
     def test_paginator_45_results(self):
         """It includes navigation with more than one page of results."""
-        extra_movies = MovieFactory.create_batch(43)
+        MovieFactory.create_batch(45)
         response = self.client.get(reverse('index'))
         self.assertContains(response, 'Page 1 of 2.')
         self.assertContains(response, 'page=2')
         self.assertContains(response, 'last &raquo;')
+
+class LibraryIndexItemsTest(TestCase):
+    
+    def tearDown(self):
+        MovieFactory.reset_sequence()
+        cache.clear()
+
+    def test_returns_movie_added_attribute_if_item(self):
+        """It includes movie.added attribute"""
+        item = ItemFactory.create(imdbid='imdb0')
+        response = self.client.get(reverse('index'))
+        self.assertContains(response, "Added to list")
+        self.assertNotContains(response, "Add to list")
+
+    def test_returns_add_to_list(self):
+        """Response contains 'add to list' when movie not item fk."""
+        movies = MovieFactory.create()
+        response = self.client.get(reverse('index'))
+        self.assertNotContains(response, "Added to list")
+        self.assertContains(response, "Add to list")
+
+    def test_page_includes_add_and_added(self):
+        """Response contains 'add to list' and 'added to list' when
+        results contains some movies linked to items."""
+        movies = MovieFactory.create()
+        items = ItemFactory.create()
+        response = self.client.get(reverse('index'))
+        self.assertContains(response, "Added to list")
+        self.assertContains(response, "Add to list")
 
 
 class LibrarySurpriseTest(TestCase):

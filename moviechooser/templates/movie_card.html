@@ -14,9 +14,6 @@
                     <p class="card-text">{{ movie.plot }}</p>
                     <p class="card-text score">Average Score: {{ movie.avg_rating }}</p>
 
-                    <!-- <a href="#" class="btn btn-primary">
-                        <img src="{% static 'images/add.png' %}" alt="Add to list">
-                        <p class="button-text">List</p></a> -->
                     <form action="{% url 'lists:my_list' %}" method="post">
                         {% csrf_token %}
                         {% if not movie.added %}
