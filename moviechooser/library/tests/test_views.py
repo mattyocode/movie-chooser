@@ -74,7 +74,9 @@ class LibraryIndexTest(TestCase):
         self.assertContains(response, 'page=2')
         self.assertContains(response, 'last &raquo;')
 
-    def test_movies_are_cached(self):
+    @patch('django.core.cache.cache')
+    def test_movies_are_cached(self, mock_cache):
+        mock_cache.return_value = None
         MovieFactory.create_batch(20)
         self.assertEqual(None, cache.get('movie_selection'))
         response = self.client.get(reverse('index'))

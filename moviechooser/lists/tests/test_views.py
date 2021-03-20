@@ -102,3 +102,35 @@ class ListRemoveTest(TestCase):
         item = Item.objects.create(imdbid='test1234', movie=movie)
         response = self.client.post(reverse('lists:remove', args=[f'{item.id}']))
         self.assertNotIn('Tester', response.content.decode())
+
+class ListUpdateTest(TestCase):
+
+    def test_can_update_watched_attribute_false_to_true(self):
+        movie = Movie.objects.create(
+            imdbid='test1234',
+            title='Tester: Revenge of the Test',
+            released='2021-01-14',
+            runtime='100',
+            writer='Check Itt',
+            poster_url='www.example.com/image/location/img.jpg',
+        )
+        item = Item.objects.create(imdbid='test1234', movie=movie)
+        self.assertEqual(item.watched, False)
+        response = self.client.post(reverse('lists:update', args=[f'{item.id}']))
+        item = Item.objects.get(imdbid='test1234')
+        self.assertEqual(item.watched, True)
+
+    def test_can_update_watched_attribute_true_to_false(self):
+        movie = Movie.objects.create(
+            imdbid='test1234',
+            title='Tester: Revenge of the Test',
+            released='2021-01-14',
+            runtime='100',
+            writer='Check Itt',
+            poster_url='www.example.com/image/location/img.jpg',
+        )
+        item = Item.objects.create(imdbid='test1234', movie=movie, watched=True)
+        self.assertEqual(item.watched, True)
+        response = self.client.post(reverse('lists:update', args=[f'{item.id}']))
+        item = Item.objects.get(imdbid='test1234')
+        self.assertEqual(item.watched, False)

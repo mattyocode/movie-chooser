@@ -28,3 +28,12 @@ def remove_item(request, pk):
     item.delete()
     return redirect(reverse('lists:my_list'))
     
+def update_item(request, pk):
+    item = Item.objects.get(id=pk)
+    if item.watched:
+        item.watched = False
+    else:
+        item.watched = True
+    item.save()
+    
+    return redirect(reverse('lists:my_list'))
