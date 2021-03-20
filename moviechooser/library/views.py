@@ -24,6 +24,7 @@ def index(request):
         for movie in movies:
             if movie.imdbid in item_imdbid:
                 movie.added = True
+                movie.item = Item.objects.get(imdbid=movie.imdbid)
             else:
                 movie.added = False
     except:

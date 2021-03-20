@@ -26,7 +26,7 @@ def my_list(request):
 def remove_item(request, pk):
     item = Item.objects.get(id=pk)
     item.delete()
-    return redirect(reverse('lists:my_list'))
+    return redirect(request.META.get('HTTP_REFERER'))
     
 def update_item(request, pk):
     item = Item.objects.get(id=pk)
@@ -35,5 +35,5 @@ def update_item(request, pk):
     else:
         item.watched = True
     item.save()
-    
+
     return redirect(reverse('lists:my_list'))
