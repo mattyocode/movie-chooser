@@ -6,8 +6,6 @@ from moviechooser.library.models import Movie
 from moviechooser.lists.models import Item
 
 
-# Create your views here.
-
 def my_list(request):
     if request.method == 'POST':
         item_imdbid = request.POST['imdbid']
