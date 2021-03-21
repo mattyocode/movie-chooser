@@ -16,4 +16,4 @@ class Item(models.Model):
     #     return self.title
 
     class Meta:
-        ordering = ['-watched', '-date_added']
+        ordering = ['watched', '-date_added']

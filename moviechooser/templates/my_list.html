@@ -40,7 +40,7 @@
 
                             <form action="{% url 'lists:update' list_item.id %}" method="post">
                             {% csrf_token %}
-                            {% if list_item.watched %}
+                            {% if not list_item.watched %}
                                 <button type="submit" class="btn btn-primary watched" name="update" value={{ list_item.id }}>
                                     <img src="{% static 'images/empty.png' %}" alt="Updated watched movie">
                                     <p class="button-text">watched</p></button>

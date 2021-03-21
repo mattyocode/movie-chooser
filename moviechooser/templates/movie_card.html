@@ -27,8 +27,9 @@
                         <button class="btn btn-primary added" name="imdbid" value={{ movie.imdbid }}>
                             <img src="{% static 'images/add.png' %}" alt="Added to list">
                             <p class="button-text">Added</p></button>
-                    {% endif %}
                     </form>
+                    {% endif %}
+
 
                     <a href="{% url 'detail' movie.imdbid %}" class="btn btn-primary">
                         <img src="{% static 'images/info.png' %}" alt="Movie info">
