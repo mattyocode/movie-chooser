@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from unittest import mock
 
+from django.db import IntegrityError
 from django.test import TestCase
 from django.urls import reverse
 
@@ -86,6 +87,20 @@ class ListAddTest(TestCase):
     def test_doesnt_save_when_not_POST_request(self):
         response = self.client.get(reverse('lists:my_list'))
         self.assertEqual(Item.objects.count(), 0)
+
+    def test_cannot_add_same_movie_to_list_twice(self):
+        movie = Movie.objects.create(
+            imdbid='test1234',
+            title='Tester: Revenge of the Test',
+            released='2021-01-14',
+            runtime='100',
+            writer='Check Itt',
+            poster_url='www.example.com/image/location/img.jpg',
+        )
+        item_1 = Item.objects.create(imdbid='test1234', movie=movie)
+        with self.assertRaises(IntegrityError):
+            item_2 = Item.objects.create(imdbid='test1234', movie=movie)
+       
 
 
 class ListRemoveTest(TestCase):

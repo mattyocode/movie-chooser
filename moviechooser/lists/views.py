@@ -22,9 +22,10 @@ def my_list(request):
     return render(request, 'my_list.html', context)
 
 def remove_item(request, pk):
+    # check where request is coming from
     item = Item.objects.get(id=pk)
     item.delete()
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get('HTTP_REFERER') + f"#{item.imdbid}")
     
 def update_item(request, pk):
     item = Item.objects.get(id=pk)
