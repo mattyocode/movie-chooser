@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
@@ -10,8 +11,10 @@ def my_list(request):
     if request.method == 'POST':
         item_imdbid = request.POST['imdbid']
         movie = Movie.objects.get(imdbid=item_imdbid)
-        item = Item.objects.create(imdbid=item_imdbid, movie=movie)
-        # request.session['from_list'] = True
+        try:
+            item = Item.objects.create(imdbid=item_imdbid, movie=movie)
+        except IntegrityError:
+            return redirect(request.META.get('HTTP_REFERER'))
         return redirect(request.META.get('HTTP_REFERER') + f"#{item_imdbid}")
     else:
         list_items = Item.objects.all()
@@ -22,10 +25,12 @@ def my_list(request):
     return render(request, 'my_list.html', context)
 
 def remove_item(request, pk):
-    # check where request is coming from
     item = Item.objects.get(id=pk)
     item.delete()
-    return redirect(request.META.get('HTTP_REFERER') + f"#{item.imdbid}")
+    if request.META.get('HTTP_REFERER') == reverse('lists:my_list'):
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect(request.META.get('HTTP_REFERER') + f"#{item.imdbid}")
     
 def update_item(request, pk):
     item = Item.objects.get(id=pk)
