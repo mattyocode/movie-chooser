@@ -102,7 +102,6 @@ class ListAddTest(TestCase):
             item_2 = Item.objects.create(imdbid='test1234', movie=movie)
        
 
-
 class ListRemoveTest(TestCase):
 
     def test_can_remove_from_list(self):

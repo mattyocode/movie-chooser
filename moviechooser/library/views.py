@@ -10,6 +10,9 @@ from moviechooser.library.models import Movie
 
 
 def index(request):
+    get_copy = request.GET.copy()
+    parameters = get_copy.pop('page', True) and get_copy.urlencode()
+
     movies = cache.get('movie_selection')
     if not movies:
         movies = Movie.objects.order_by('?')
@@ -78,12 +81,27 @@ def search_results(request):
         Q(title__icontains=query)
         ).order_by('-avg_rating')
 
+    try:
+        items = Item.objects.all()
+        item_imdbid = set()
+        for item in items:
+            item_imdbid.add(item.imdbid)
+
+        for movie in movies:
+            if movie.imdbid in item_imdbid:
+                movie.added = True
+                movie.item = Item.objects.get(imdbid=movie.imdbid)
+            else:
+                movie.added = False
+    except:
+        pass
+
     paginator = Paginator(movies, 30)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
-        'parameters': parameters,
+        # 'parameters': parameters,
         'page_obj': page_obj,
     }
 
