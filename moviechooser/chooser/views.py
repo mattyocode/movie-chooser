@@ -5,7 +5,8 @@ from django.db.models import Max, Min, Q
 from django.core.paginator import Paginator
 
 from moviechooser.library.models import Movie, Genre
-# from .forms import MovieChoiceForm
+from moviechooser.lists.models import Item
+
 
 def homepage(request):
     genres = Genre.objects.all()
@@ -44,6 +45,21 @@ def results(request):
                 .distinct()
                 .order_by('-avg_rating')
             )
+
+    try:
+        items = Item.objects.all()
+        item_imdbid = set()
+        for item in items:
+            item_imdbid.add(item.imdbid)
+
+        for movie in movies:
+            if movie.imdbid in item_imdbid:
+                movie.added = True
+                movie.item = Item.objects.get(imdbid=movie.imdbid)
+            else:
+                movie.added = False
+    except:
+        pass
             
     paginator = Paginator(movies, 30)
     page_number = request.GET.get('page')

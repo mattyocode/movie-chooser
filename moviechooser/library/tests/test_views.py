@@ -193,7 +193,6 @@ class SearchResultsTest(TestCase):
             title='The Outlier',
             released='2021-01-01'
         )
-        MovieFactory.create_batch(44)
 
     def search_url_for_query(self, value=''):
         url = reverse('search_results')
@@ -233,6 +232,7 @@ class SearchResultsTest(TestCase):
 
     def test_paginator_45_results(self):
         """It includes navigation with more than one page of results."""
+        MovieFactory.create_batch(44)
         url = self.search_url_for_query('tester')
         response = self.client.get(url)
         self.assertContains(response, 'Page 1 of 2.')
