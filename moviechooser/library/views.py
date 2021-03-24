@@ -73,8 +73,6 @@ def movie_detail(request, pk):
     return render(request, 'detail_page.html', context=context)
 
 def search_results(request):
-    get_copy = request.GET.copy()
-    parameters = get_copy.pop('page', True) and get_copy.urlencode()
 
     query = request.GET.get('q')
     movies = Movie.objects.filter(
@@ -101,7 +99,6 @@ def search_results(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
-        # 'parameters': parameters,
         'page_obj': page_obj,
     }
 

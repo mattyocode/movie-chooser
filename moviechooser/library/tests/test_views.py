@@ -80,7 +80,13 @@ class LibraryIndexTest(TestCase):
         MovieFactory.create_batch(20)
         self.assertEqual(None, cache.get('movie_selection'))
         response = self.client.get(reverse('index'))
-        self.assertEqual(len(cache.get('movie_selection')), 20)        
+        self.assertEqual(len(cache.get('movie_selection')), 20)
+
+    def test_movies_show_as_added(self):
+        movie = MovieFactory.create(imdbid='0001')
+        item = ItemFactory.create(imdbid='0001', movie=movie)
+        response = self.client.get(reverse('index'))
+        self.assertContains(response, 'Added')
 
 
 class LibraryIndexItemsTest(TestCase):
