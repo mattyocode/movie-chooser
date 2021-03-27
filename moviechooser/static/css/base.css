@@ -225,7 +225,7 @@ p.button-text {
 
 .nav-right {
   position: absolute;
-  right: 1rem;
+  right: 0;
 }
 
 .search-box {
@@ -239,6 +239,9 @@ p.button-text {
   top: 50%;
 }
 
+.logout-link {
+  margin: 0 0 0 1rem;
+}
 
 /* ---  homepage  --- */
 
