@@ -6,7 +6,7 @@ from moviechooser.library.models import Movie
 # Create your models here.
 class Item(models.Model):
 
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     imdbid = models.CharField(max_length=20, unique=True)
     movie = models.ForeignKey(Movie, on_delete=models.SET_NULL, null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)

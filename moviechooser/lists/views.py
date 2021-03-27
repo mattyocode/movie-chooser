@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -6,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from moviechooser.library.models import Movie
 from moviechooser.lists.models import Item
 
-
+@login_required(login_url='accounts:login')
 def my_list(request):
     if request.method == 'POST':
         item_imdbid = request.POST['imdbid']

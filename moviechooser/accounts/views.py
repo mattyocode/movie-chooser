@@ -4,9 +4,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .forms import CreateUserForm
+from .decorators import unauthenticated_user
 
 # Create your views here.
 
+@unauthenticated_user
 def register_page(request):
     form = CreateUserForm()
     if request.method == "POST":
@@ -20,6 +22,7 @@ def register_page(request):
     context = {'form': form}
     return render(request, 'register.html', context)
 
+@unauthenticated_user
 def login_page(request):
     if request.method == "POST":
         username = request.POST.get('username')
