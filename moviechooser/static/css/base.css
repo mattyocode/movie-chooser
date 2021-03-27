@@ -221,6 +221,24 @@ p.button-text {
   box-shadow: 5px 10px 18px #444;
 }
 
+/* -- navbar -- */
+
+.nav-right {
+  position: absolute;
+  right: 1rem;
+}
+
+.search-box {
+  float: left;
+}
+
+.auth-info {
+  float: right;
+  color: white;
+  margin: auto 1rem;
+  top: 50%;
+}
+
 
 /* ---  homepage  --- */
 
@@ -390,8 +408,9 @@ label[for="runtime"] {
 }
 
 .form-inline.my-2.my-lg-0 {
-    right: 2em;
-    position: absolute;
+    /* right: 2em;
+    position: absolute; */
+    position: relative;
   }
 
 .keep-row {
@@ -530,4 +549,9 @@ label[for="runtime"] {
   color: #fff;
   padding: 10px;
   margin-top: 10px;
+}
+
+.auth-info {
+
+  float: right;
 }
