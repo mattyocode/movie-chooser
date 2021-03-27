@@ -193,6 +193,7 @@ class SearchResultsTest(TestCase):
             title='The Outlier',
             released='2021-01-01'
         )
+        MovieFactory.create_batch(25)
 
     def search_url_for_query(self, value=''):
         url = reverse('search_results')
@@ -222,6 +223,17 @@ class SearchResultsTest(TestCase):
         self.assertContains(response, 'Tester')
         self.assertNotContains(response, 'The Outlier')
 
+    def test_existing_movies_show_as_added_to_list(self):
+        movie = MovieFactory.create(imdbid='0001')
+        item = ItemFactory.create(imdbid='0001', movie=movie)
+        response = self.client.get(reverse('index'))
+        self.assertContains(response, '<p class="button-text">Added</p>')
+
+    def test_no_movies_show_as_added_to_list(self):
+        item = ItemFactory.create(imdbid='0001')
+        response = self.client.get(reverse('index'))
+        self.assertContains(response, '<p class="button-text">Added</p>')
+
     def test_paginator_under_30_results(self):
         """It doesn't provide page navigation links with single page of results."""
         url = self.search_url_for_query('the outlier')
@@ -230,9 +242,9 @@ class SearchResultsTest(TestCase):
         self.assertNotContains(response, 'page=2')
         self.assertNotContains(response, 'last &raquo;')
 
-    def test_paginator_45_results(self):
+    def test_paginator_over_30_results(self):
         """It includes navigation with more than one page of results."""
-        MovieFactory.create_batch(44)
+        MovieFactory.create_batch(20)
         url = self.search_url_for_query('tester')
         response = self.client.get(url)
         self.assertContains(response, 'Page 1 of 2.')

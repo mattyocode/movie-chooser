@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('moviechooser.chooser.urls')),
     path('library/', include('moviechooser.library.urls')),
     path('mylist/', include('moviechooser.lists.urls')),
+    path('user/', include('moviechooser.accounts.urls'))
 ]
 
 if settings.DEBUG:
