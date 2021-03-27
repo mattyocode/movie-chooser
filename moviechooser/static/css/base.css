@@ -239,7 +239,8 @@ p.button-text {
   top: 50%;
 }
 
-.logout-link {
+.logout-link,
+.register-link {
   margin: 0 0 0 1rem;
 }
 

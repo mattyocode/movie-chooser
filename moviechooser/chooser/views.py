@@ -47,7 +47,7 @@ def results(request):
             )
 
     try:
-        items = Item.objects.all()
+        items = Item.objects.filter(user=request.user)
         item_imdbid = set()
         for item in items:
             item_imdbid.add(item.imdbid)

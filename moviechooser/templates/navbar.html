@@ -30,8 +30,12 @@
         <div class="nav-item nav-link auth-info">
           <ul class="navbar-nav">
           <li class="nav-item">Hello, {{ request.user }}</li>
+          {% if user.is_authenticated %}
           <li class="nav-item logout-link"><a href="{% url 'accounts:logout' %}">Logout</a></li>
-          </ul>
+          {% else %}
+          <li class="nav-item register-link"><a href="{% url 'accounts:register' %}">Register</a></li>
+          {% endif %}
+        </ul>
         </div>
       </div>
 

@@ -19,7 +19,7 @@ def index(request):
         cache.set('movie_selection', movies)
 
     try:
-        items = Item.objects.all()
+        items = Item.objects.filter(user=request.user)
         item_imdbid = set()
         for item in items:
             item_imdbid.add(item.imdbid)
@@ -82,7 +82,7 @@ def search_results(request):
         ).order_by('-avg_rating')
 
     try:
-        items = Item.objects.all()
+        items = Item.objects.filter(user=request.user)
         item_imdbid = set()
         for item in items:
             item_imdbid.add(item.imdbid)
