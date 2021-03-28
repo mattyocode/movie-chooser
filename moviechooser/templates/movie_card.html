@@ -22,7 +22,7 @@
                             <p class="button-text">List</p></button>
                     </form>
                     {% else %}
-                    <form action="{% url 'lists:remove' movie.item.id %}" method="post">
+                    <form action="{% url 'lists:remove' movie.item_id %}" method="post">
                         {% csrf_token %}
                         <button class="btn btn-primary added" name="imdbid" value={{ movie.imdbid }}>
                             <img src="{% static 'images/add.png' %}" alt="Added to list">

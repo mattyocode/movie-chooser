@@ -10,13 +10,13 @@ from moviechooser.library.models import Movie
 
 
 def index(request):
-    get_copy = request.GET.copy()
-    parameters = get_copy.pop('page', True) and get_copy.urlencode()
+    # get_copy = request.GET.copy()
+    # parameters = get_copy.pop('page', True) and get_copy.urlencode()
     
-    movies = cache.get('movie_selection')
-    if not movies:
-        movies = Movie.objects.order_by('?')
-        cache.set('movie_selection', movies)
+    # movies = cache.get('movie_selection')
+    # if not movies:
+    movies = Movie.objects.order_by('?')
+        # cache.set('movie_selection', movies)
 
     try:
         items = Item.objects.filter(user=request.user)
@@ -27,7 +27,8 @@ def index(request):
         for movie in movies:
             if movie.imdbid in item_imdbid:
                 movie.added = True
-                movie.item = Item.objects.get(imdbid=movie.imdbid)
+                item = Item.objects.filter(user=request.user, imdbid=movie.imdbid)
+                movie.item_id = str(item[0].id)
             else:
                 movie.added = False
     except:
@@ -90,7 +91,8 @@ def search_results(request):
         for movie in movies:
             if movie.imdbid in item_imdbid:
                 movie.added = True
-                movie.item = Item.objects.get(imdbid=movie.imdbid)
+                item = Item.objects.filter(user=request.user, imdbid=movie.imdbid)
+                movie.item_id = str(item[0].id)
             else:
                 movie.added = False
     except:
