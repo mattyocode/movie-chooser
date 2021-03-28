@@ -551,7 +551,7 @@ label[for="runtime"] {
 
 .login_btn {
   width: 100%;
-  background: #33ccff !important;
+  background: #3DA195 !important;
   color: white !important;
 }
 .login_btn:focus {
@@ -562,7 +562,7 @@ label[for="runtime"] {
   padding: 0 2rem;
 }
 .input-group-text {
-  background: #f7ba5b !important;
+  background: #3DA195 !important;
   color: white !important;
   border: 0 !important;
   border-radius: 0.25rem 0 0 0.25rem !important;
