@@ -12,7 +12,7 @@ def my_list(request):
     if request.method == 'POST':
         item_imdbid = request.POST['imdbid']
         # Check user's saved items
-        if not Item.objects.filter(imdbid=item_imdbid).exists():
+        if not Item.objects.filter(user=request.user, imdbid=item_imdbid).exists():
             movie = Movie.objects.get(imdbid=item_imdbid)
             item = Item.objects.create(user=request.user, imdbid=item_imdbid, movie=movie)
             return redirect(request.META.get('HTTP_REFERER') + f"#{item_imdbid}")
