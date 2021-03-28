@@ -43,21 +43,3 @@ def update_item(request, pk):
     item.save()
 
     return redirect(reverse('lists:my_list'))
-
-
-# @login_required(login_url='accounts:login')
-# def my_list(request):
-#     if request.method == 'POST':
-#         item_imdbid = request.POST['imdbid']
-#         movie = Movie.objects.get(imdbid=item_imdbid)
-#         try:
-#             item = Item.objects.create(user=request.user, imdbid=item_imdbid, movie=movie)
-#         except IntegrityError:
-#             return redirect(request.META.get('HTTP_REFERER'))
-#         return redirect(request.META.get('HTTP_REFERER') + f"#{item_imdbid}")
-#     else:
-#         list_items = Item.objects.filter(user=request.user)
-#         context = {
-#             'list_items': list_items
-#         }
-#     return render(request, 'my_list.html', context)

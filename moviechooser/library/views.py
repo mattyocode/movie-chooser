@@ -10,13 +10,13 @@ from moviechooser.library.models import Movie
 
 
 def index(request):
-    # get_copy = request.GET.copy()
-    # parameters = get_copy.pop('page', True) and get_copy.urlencode()
+    get_copy = request.GET.copy()
+    parameters = get_copy.pop('page', True) and get_copy.urlencode()
     
-    # movies = cache.get('movie_selection')
-    # if not movies:
-    movies = Movie.objects.order_by('?')
-        # cache.set('movie_selection', movies)
+    movies = cache.get('movie_selection')
+    if not movies:
+        movies = Movie.objects.order_by('?')
+        cache.set('movie_selection', movies)
 
     try:
         items = Item.objects.filter(user=request.user)

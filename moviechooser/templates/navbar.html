@@ -28,14 +28,16 @@
         </form>
 
         <div class="nav-item nav-link auth-info">
-          <ul class="navbar-nav">
-          <li class="nav-item">Hello, {{ request.user }}</li>
+          <ul class="navbar-nav auth-list">
           {% if user.is_authenticated %}
-          <li class="nav-item logout-link"><a href="{% url 'accounts:logout' %}">Logout</a></li>
+          <li class="nav-item auth-item">Hello, {{ request.user }}</li>
+          <li class="nav-item auth-item logout-link"><a href="{% url 'accounts:logout' %}">Logout</a></li>
           {% else %}
-          <li class="nav-item register-link"><a href="{% url 'accounts:register' %}">Register</a></li>
+          <li class="nav-item auth-item register-link"><a href="{% url 'accounts:register' %}">Register</a></li>
+          <p class="nav-item auth-item auth-slash">/</p>
+          <li class="nav-item auth-item login-link"><a href="{% url 'accounts:login' %}">Login</a></li>
           {% endif %}
-        </ul>
+          </ul>
         </div>
       </div>
 
