@@ -18,7 +18,7 @@ def my_list(request):
             if 'surprise' and '?' in request.META.get('HTTP_REFERER'):
                 return redirect(request.META.get('HTTP_REFERER'))
             if 'surprise' and not '?' in request.META.get('HTTP_REFERER'):
-                return redirect(request.META.get('HTTP_REFERER') + f"?movie={item_imdbid}")
+                return redirect(request.META.get('HTTP_REFERER') + f"?movie={item_imdbid}" + f"#{item_imdbid}")
             return redirect(request.META.get('HTTP_REFERER') + f"#{item_imdbid}")
         return redirect(request.META.get('HTTP_REFERER'))
     else:
