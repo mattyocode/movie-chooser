@@ -61,7 +61,7 @@
       <button
         type="button"
         class="btn btn-primary back"
-        name="imdbid"
+        name="back"
         onclick="{history.back()}"
       >
         <i class="fas fa-step-backward"></i>
@@ -69,9 +69,12 @@
       </button>
 
       {% if try_again %}
-      <a href="{% url 'surprise' %}" class="btn btn-primary again"
-        >Try again!</a
-      >
+      <a href="{% url 'surprise' %}" class="btn btn-primary again">
+        <i class="fas fa-sync-alt"></i>
+        <p class="button-text">Try Again!</p>
+      </a>
+
+    </button>
       {% endif %} {% if not movie.added %}
       <form action="{% url 'lists:my_list' %}" method="post">
         {% csrf_token %}
@@ -81,7 +84,8 @@
           name="imdbid"
           value="{{movie.imdbid}}"
         >
-          <img src="{% static 'images/add.png' %}" alt="Add to list" />
+          <!-- <img src="{% static 'images/add.png' %}" alt="Add to list" /> -->
+          <i class="fas fa-plus"></i>
           <p class="button-text">List</p>
         </button>
       </form>

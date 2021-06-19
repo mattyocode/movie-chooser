@@ -50,14 +50,21 @@ def surprise(request):
     else: 
         rand_index = 0
     random_movie = movies[rand_index]
-    try_again = True
+
+    try:
+        item = Item.objects.filter(user=request.user, imdbid=random_movie.imdbid)
+        random_movie.item_id = str(item[0].id)
+        random_movie.added = True
+    except:
+        random_movie.added = False
+
     context = {
         'movie': random_movie,
         'actors': random_movie.get_actors(),
         'director': random_movie.get_director(),
         'year': random_movie.get_year(),
         'genre': random_movie.get_genre(),
-        'try_again': try_again,
+        'try_again': True,
     }
 
     return render(request, 'surprise.html', context=context)

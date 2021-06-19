@@ -206,7 +206,8 @@ p.button-text {
   border: black;
   width: 4rem;
   height: 3.5rem;
-  box-shadow: 0 1px 3px rgba(87, 70, 148, 0.2);
+  box-shadow: 3px 3px black;
+  margin: auto 1rem auto 0;
 }
 
 .detail-buttons > form > .btn {
@@ -217,9 +218,11 @@ p.button-text {
 
 .detail-buttons > .again {
   background-color: rgb(87, 70, 148);
-  border: black;
+  border-color: black;
   width: 4rem;
   height: 3.5rem;
+  box-shadow: 3px 3px black;
+  margin: auto 1rem auto 0;
 }
 
 .detail-buttons > .again:hover {
