@@ -43,6 +43,7 @@ def index(request):
     }
     return render(request, 'library.html', context=context)
 
+
 def surprise(request):
     if 'movie' in request.get_full_path():
         random_movie = Movie.objects.get(imdbid=request.GET.getlist('movie')[0])
@@ -71,6 +72,7 @@ def surprise(request):
     }
 
     return render(request, 'surprise.html', context=context)
+
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, imdbid=pk)
@@ -109,6 +111,7 @@ def movie_detail(request, pk):
         'from_list': from_list
     }
     return render(request, 'detail_page.html', context=context)
+
 
 def search_results(request):
     get_copy = request.GET.copy()
