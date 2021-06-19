@@ -1,78 +1,110 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-{% load static %}
+{% extends 'base.html' %} {% block content %} {% load static %}
 
 <div class="jumbotron">
-    <h1 class="display-4 center-subhead">My List</h1>
+  <h1 class="display-4 center-subhead">My List</h1>
 </div>
 
 <div class="page-container">
+  {% if list_items %}
 
-{% if list_items %}
+  <table id="my_list_table">
+    {% for list_item in list_items %}
 
-    <table id="my_list_table">
-        {% for list_item in list_items %}
+    <div class="centered-element">
+      <div class="card mb-3" style="width: 36rem">
+        <div class="row no-gutters">
+          <div class="col-4">
+            <img
+              class="card-img"
+              src="{{ list_item.movie.poster_url }}"
+              alt="{{ movie.title }} poster image"
+            />
+          </div>
 
-        
-        <div class="centered-element">
-            <div class="card mb-3" style="width: 36rem;">
-                <div class="row no-gutters">
-        
-                    <div class="col-4">
-                        <img class="card-img" src="{{ list_item.movie.poster_url }}" alt="{{ movie.title }} poster image">
-                    </div>
-        
-                    <div class="col-8">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ list_item.movie.title }}</h5>
-                            <p class="card-text">{{ list_item.movie.plot }}</p>
-                            <p class="card-text score">Average Score: {{ list_item.movie.avg_rating }}</p>
-                            <p class="card-text">Added on: {{ list_item.date_added }}</p>
-        
-                            <form action="{% url 'lists:remove' list_item.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-primary remove" name="remove" value={{ list_item.id }}>
-                                    <img src="{% static 'images/remove.png' %}" alt="Remove from list">
-                                    <p class="button-text">Remove</p></button>                                    
-                            </form>
+          <div class="col-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ list_item.movie.title }}</h5>
+              <p class="card-text">{{ list_item.movie.plot }}</p>
+              <p class="card-text score">
+                Average Score: {{ list_item.movie.avg_rating }}
+              </p>
+              <p class="card-text">Added on: {{ list_item.date_added }}</p>
 
-                            <form action="{% url 'lists:update' list_item.id %}" method="post">
-                            {% csrf_token %}
-                            {% if not list_item.watched %}
-                                <button type="submit" class="btn btn-primary watched" name="update" value={{ list_item.id }}>
-                                    <img src="{% static 'images/empty.png' %}" alt="Updated watched movie">
-                                    <p class="button-text">watched</p></button>
-                            {% else %}
-                                <button type="submit" class="btn btn-primary watched" name="update" value={{ list_item.id }}>
-                                    <img src="{% static 'images/tick.png' %}" alt="Updated watched movie">
-                                    <p class="button-text">watched</p></button>
-                            {% endif %}
-                            </form>
+              <form
+                action="{% url 'lists:remove' list_item.id %}"
+                method="post"
+              >
+                {% csrf_token %}
+                <button
+                  type="submit"
+                  class="btn btn-primary remove"
+                  name="remove"
+                  value="{{"
+                  list_item.id
+                  }}
+                >
+                  <i class="fas fa-minus" alt="Remove from list"></i>
+                  <p class="button-text">Remove</p>
+                </button>
+              </form>
 
-        
-                            <a href="{% url 'detail' list_item.movie.imdbid %}" class="btn btn-primary">
-                                <img src="{% static 'images/info.png' %}" alt="Movie info">
-                                <p class="button-text">More</p></a>
-                        </div>
-                    </div>
-                    
-                </div>
+              <form
+                action="{% url 'lists:update' list_item.id %}"
+                method="post"
+              >
+                {% csrf_token %} {% if not list_item.watched %}
+                <button
+                  type="submit"
+                  class="btn btn-primary watched"
+                  name="update"
+                  value="{{"
+                  list_item.id
+                  }}
+                >
+                  <i class="far fa-square" alt="Updated watched movie"></i>
+                  <p class="button-text">watched</p>
+                </button>
+                {% else %}
+                <button
+                  type="submit"
+                  class="btn btn-primary watched"
+                  name="update"
+                  value="{{"
+                  list_item.id
+                  }}
+                >
+                  <i
+                    class="far fa-check-square"
+                    alt="Updated watched movie"
+                  ></i>
+                  <p class="button-text">watched</p>
+                </button>
+                {% endif %}
+              </form>
+
+              <a
+                href="{% url 'detail' list_item.movie.imdbid %}"
+                class="btn btn-primary"
+              >
+                <i class="fas fa-info-circle" alt="Movie info"></i>
+                <p class="button-text">More</p></a
+              >
             </div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        {% endfor %}
-    </table>
-
+    {% endfor %}
+  </table>
 </div>
 {% else %}
 
 <div class="choices-panel">
-<h2 class="center-subhead"><strong>No movies added to list</strong></h2>
+  <h2 class="center-subhead"><strong>No movies added to list</strong></h2>
 
-{% endif %}
-<!-- d
+  {% endif %}
+  <!-- d
 {% endblock %}
 
 {% if page_obj %}
@@ -97,3 +129,4 @@
 </div>
 
 {% endif %} -->
+</div>

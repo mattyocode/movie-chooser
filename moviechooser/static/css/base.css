@@ -129,6 +129,10 @@ h2 {
   background: var(--clr-black);
 }
 
+i {
+  color: white;
+}
+
 /* ---  movie_card  --- */
 
 .card.mb-3 {

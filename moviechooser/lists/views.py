@@ -35,6 +35,8 @@ def remove_item(request, pk):
     if request.META.get('HTTP_REFERER') == reverse('lists:my_list'):
         return redirect(request.META.get('HTTP_REFERER'))
     else:
+        if 'surprise' and '?' in request.META.get('HTTP_REFERER'):
+            return redirect(request.META.get('HTTP_REFERER'))
         return redirect(request.META.get('HTTP_REFERER') + f"#{item.imdbid}")
 
 @login_required(login_url='accounts:login')

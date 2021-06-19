@@ -44,12 +44,8 @@ def index(request):
     return render(request, 'library.html', context=context)
 
 def surprise(request):
-    print("request ==>", request.get_full_path())
-
     if 'movie' in request.get_full_path():
-        print('movie id ==>', request.GET.getlist('movie')[0])
         random_movie = Movie.objects.get(imdbid=request.GET.getlist('movie')[0])
-        print("movie object ==>", random_movie)
     else:
         movies = Movie.objects.all()
         if len(movies) > 1:
@@ -78,6 +74,20 @@ def surprise(request):
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, imdbid=pk)
+    referer = request.META.get('HTTP_REFERER')
+    if 'library' in referer and 'movie' not in referer:
+        from_library = True
+        from_list = False
+        cache.set('from_library', from_library)
+        cache.set('from_list', from_list)
+    elif 'mylist' in referer:
+        from_library = False
+        from_list = True
+        cache.set('from_library', from_library)
+        cache.set('from_list', from_list)
+    else:
+        from_library = cache.get('from_library')
+        from_list = cache.get('from_list')
 
     try:
         item = Item.objects.filter(user=request.user, imdbid=movie.imdbid)
@@ -86,12 +96,17 @@ def movie_detail(request, pk):
     except:
         movie.added = False
 
+    print('from_list', from_list)
+    print('from_library', from_library)
+
     context = {
         'movie': movie,
         'actors': movie.get_actors(),
         'director': movie.get_director(),
         'year': movie.get_year(),
         'genre': movie.get_genre(),
+        'from_library': from_library,
+        'from_list': from_list
     }
     return render(request, 'detail_page.html', context=context)
 

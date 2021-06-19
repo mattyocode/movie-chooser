@@ -58,15 +58,6 @@
         <i class="fas fa-step-backward"></i>
         <p class="button-text">Back</p>
       </a> -->
-      <button
-        type="button"
-        class="btn btn-primary back"
-        name="back"
-        onclick="{history.back()}"
-      >
-        <i class="fas fa-step-backward"></i>
-        <p class="button-text">Back</p>
-      </button>
 
       {% if try_again %}
       <a href="{% url 'surprise' %}" class="btn btn-primary again">
@@ -74,7 +65,28 @@
         <p class="button-text">Try Again!</p>
       </a>
 
-    </button>
+      {% elif from_library %}
+      <button
+        type="button"
+        class="btn btn-primary back"
+        name="back"
+        onclick="{window.location.replace('/library/#{{movie.imdbid}}')}"
+      >
+        <i class="fas fa-step-backward"></i>
+        <p class="button-text">Back</p>
+      </button>
+
+      {% elif from_list %}
+      <button
+        type="button"
+        class="btn btn-primary back"
+        name="back"
+        onclick="{window.location.replace('/mylist/#{{movie.imdbid}}')}"
+      >
+        <i class="fas fa-step-backward"></i>
+        <p class="button-text">Back</p>
+      </button>
+
       {% endif %} {% if not movie.added %}
       <form action="{% url 'lists:my_list' %}" method="post">
         {% csrf_token %}
@@ -99,7 +111,7 @@
           movie.imdbid
           }}"
         >
-          <img src="{% static 'images/add.png' %}" alt="Added to list" />
+          <i class="fas fa-minus"></i>
           <p class="button-text">Added</p>
         </button>
       </form>
