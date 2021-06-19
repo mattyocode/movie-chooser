@@ -1,14 +1,10 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="jumbotron">
-    <h1 class="display-4">Movie Details</h1>
-    <p class="lead">What you need to know...</p>
+  <h1 class="display-4 text-center">Movie Details</h1>
+  <p class="lead text-center">What you need to know...</p>
 </div>
 
-<div class="page-container">
-    {% include 'movie_detail.html' %}
-</div>
+<div class="page-container">{% include 'movie_detail.html' %}</div>
 
 {% endblock %}

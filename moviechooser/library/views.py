@@ -26,9 +26,9 @@ def index(request):
 
         for movie in movies:
             if movie.imdbid in item_imdbid:
-                movie.added = True
                 item = Item.objects.filter(user=request.user, imdbid=movie.imdbid)
                 movie.item_id = str(item[0].id)
+                movie.added = True
             else:
                 movie.added = False
     except:
@@ -64,6 +64,14 @@ def surprise(request):
 
 def movie_detail(request, pk):
     movie = get_object_or_404(Movie, imdbid=pk)
+
+    try:
+        item = Item.objects.filter(user=request.user, imdbid=movie.imdbid)
+        movie.item_id = str(item[0].id)
+        movie.added = True
+    except:
+        movie.added = False
+
     context = {
         'movie': movie,
         'actors': movie.get_actors(),
