@@ -15,6 +15,10 @@ def my_list(request):
         if not Item.objects.filter(user=request.user, imdbid=item_imdbid).exists():
             movie = Movie.objects.get(imdbid=item_imdbid)
             item = Item.objects.create(user=request.user, imdbid=item_imdbid, movie=movie)
+            if 'surprise' and '?' in request.META.get('HTTP_REFERER'):
+                return redirect(request.META.get('HTTP_REFERER'))
+            if 'surprise' and not '?' in request.META.get('HTTP_REFERER'):
+                return redirect(request.META.get('HTTP_REFERER') + f"?movie={item_imdbid}")
             return redirect(request.META.get('HTTP_REFERER') + f"#{item_imdbid}")
         return redirect(request.META.get('HTTP_REFERER'))
     else:

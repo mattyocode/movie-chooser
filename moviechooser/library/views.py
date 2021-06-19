@@ -44,12 +44,19 @@ def index(request):
     return render(request, 'library.html', context=context)
 
 def surprise(request):
-    movies = Movie.objects.all()
-    if len(movies) > 1:
-        rand_index = randint(0, len(movies) - 1)
-    else: 
-        rand_index = 0
-    random_movie = movies[rand_index]
+    print("request ==>", request.get_full_path())
+
+    if 'movie' in request.get_full_path():
+        print('movie id ==>', request.GET.getlist('movie')[0])
+        random_movie = Movie.objects.get(imdbid=request.GET.getlist('movie')[0])
+        print("movie object ==>", random_movie)
+    else:
+        movies = Movie.objects.all()
+        if len(movies) > 1:
+            rand_index = randint(0, len(movies) - 1)
+        else: 
+            rand_index = 0
+        random_movie = movies[rand_index]
 
     try:
         item = Item.objects.filter(user=request.user, imdbid=random_movie.imdbid)
