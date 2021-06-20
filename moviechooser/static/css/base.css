@@ -101,6 +101,10 @@ h2 {
   z-index: -5;
 }
 
+.align-left {
+  justify-content: left !important;
+}
+
 /* remove bootstrap form styling */
 
 .card-body > form {
