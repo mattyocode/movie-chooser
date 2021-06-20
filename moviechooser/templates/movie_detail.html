@@ -54,27 +54,11 @@
     </div>
 
     <div class="detail-buttons">
-      <!-- <a href="javascript:history.back()" class="btn btn-primary back">
-        <i class="fas fa-step-backward"></i>
-        <p class="button-text">Back</p>
-      </a> -->
-
       {% if try_again %}
       <a href="{% url 'surprise' %}" class="btn btn-primary again">
         <i class="fas fa-sync-alt"></i>
         <p class="button-text">Try Again!</p>
       </a>
-
-      {% elif from_library %}
-      <button
-        type="button"
-        class="btn btn-primary back"
-        name="back"
-        onclick="{window.location.replace('/library/#{{movie.imdbid}}')}"
-      >
-        <i class="fas fa-step-backward"></i>
-        <p class="button-text">Back</p>
-      </button>
 
       {% elif from_list %}
       <button
@@ -82,6 +66,17 @@
         class="btn btn-primary back"
         name="back"
         onclick="{window.location.replace('/mylist/#{{movie.imdbid}}')}"
+      >
+        <i class="fas fa-step-backward"></i>
+        <p class="button-text">Back</p>
+      </button>
+
+      {% else %}
+      <button
+        type="button"
+        class="btn btn-primary back"
+        name="back"
+        onclick="{window.location.replace('/library/#{{movie.imdbid}}')}"
       >
         <i class="fas fa-step-backward"></i>
         <p class="button-text">Back</p>

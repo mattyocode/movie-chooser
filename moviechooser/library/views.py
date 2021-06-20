@@ -31,6 +31,10 @@ def index(request):
                 movie.added = True
             else:
                 movie.added = False
+            movie.act = movie.get_actors()
+            movie.dir = movie.get_director()
+            movie.yr = movie.get_year()
+            movie.gen = movie.get_genre()
     except:
         pass
 

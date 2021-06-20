@@ -95,6 +95,12 @@ h2 {
   text-align: center;
 }
 
+.hide {
+  height: 0px;
+  visibility: hidden;
+  z-index: -5;
+}
+
 /* remove bootstrap form styling */
 
 .card-body > form {
@@ -185,6 +191,11 @@ p.button-text {
   background-color: var(--clr-grey-5);
   color: transparent;
   border: none;
+}
+
+.card-detail {
+  width: 100%;
+  padding: 1rem;
 }
 
 /* ---  movie_detail  --- */
@@ -445,6 +456,8 @@ label[for="runtime"] {
   border-color: #444;
   border-radius: 2px;
   border-width: 1px;
+  display: flex;
+  justify-content: center;
 }
 
 .ratings-details > li {
