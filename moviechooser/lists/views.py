@@ -17,12 +17,17 @@ def my_list(request):
             item = Item.objects.create(user=request.user, imdbid=item_imdbid, movie=movie)
             if 'surprise' and '?' in request.META.get('HTTP_REFERER'):
                 return redirect(request.META.get('HTTP_REFERER'))
-            if 'surprise' and not '?' in request.META.get('HTTP_REFERER'):
-                return redirect(request.META.get('HTTP_REFERER') + f"?movie={item_imdbid}")
-            return redirect(request.META.get('HTTP_REFERER') + f"#{item_imdbid}")
-        return redirect(request.META.get('HTTP_REFERER'))
+            # if 'surprise' and not '?' in request.META.get('HTTP_REFERER'):
+            #     return redirect(request.META.get('HTTP_REFERER') + f"?movie={item_imdbid}")
+        return redirect(request.META.get('HTTP_REFERER') + f"#{item_imdbid}")
     else:
         list_items = Item.objects.filter(user=request.user)
+        for item in list_items:
+            movie = Movie.objects.get(imdbid=item.movie.imdbid)
+            item.movie.act = movie.get_actors()
+            item.movie.dir = movie.get_director()
+            item.movie.yr = movie.get_year()
+            item.movie.gen = movie.get_genre()
         context = {
             'list_items': list_items
         }

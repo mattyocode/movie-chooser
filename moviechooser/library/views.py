@@ -78,43 +78,43 @@ def surprise(request):
     return render(request, 'surprise.html', context=context)
 
 
-def movie_detail(request, pk):
-    movie = get_object_or_404(Movie, imdbid=pk)
-    referer = request.META.get('HTTP_REFERER')
-    if 'library' in referer and 'movie' not in referer:
-        from_library = True
-        from_list = False
-        cache.set('from_library', from_library)
-        cache.set('from_list', from_list)
-    elif 'mylist' in referer:
-        from_library = False
-        from_list = True
-        cache.set('from_library', from_library)
-        cache.set('from_list', from_list)
-    else:
-        from_library = cache.get('from_library')
-        from_list = cache.get('from_list')
+# def movie_detail(request, pk):
+#     movie = get_object_or_404(Movie, imdbid=pk)
+#     referer = request.META.get('HTTP_REFERER')
+#     if 'library' in referer and 'movie' not in referer:
+#         from_library = True
+#         from_list = False
+#         cache.set('from_library', from_library)
+#         cache.set('from_list', from_list)
+#     elif 'mylist' in referer:
+#         from_library = False
+#         from_list = True
+#         cache.set('from_library', from_library)
+#         cache.set('from_list', from_list)
+#     else:
+#         from_library = cache.get('from_library')
+#         from_list = cache.get('from_list')
 
-    try:
-        item = Item.objects.filter(user=request.user, imdbid=movie.imdbid)
-        movie.item_id = str(item[0].id)
-        movie.added = True
-    except:
-        movie.added = False
+#     try:
+#         item = Item.objects.filter(user=request.user, imdbid=movie.imdbid)
+#         movie.item_id = str(item[0].id)
+#         movie.added = True
+#     except:
+#         movie.added = False
 
-    print('from_list', from_list)
-    print('from_library', from_library)
+#     print('from_list', from_list)
+#     print('from_library', from_library)
 
-    context = {
-        'movie': movie,
-        'actors': movie.get_actors(),
-        'director': movie.get_director(),
-        'year': movie.get_year(),
-        'genre': movie.get_genre(),
-        'from_library': from_library,
-        'from_list': from_list
-    }
-    return render(request, 'detail_page.html', context=context)
+#     context = {
+#         'movie': movie,
+#         'actors': movie.get_actors(),
+#         'director': movie.get_director(),
+#         'year': movie.get_year(),
+#         'genre': movie.get_genre(),
+#         'from_library': from_library,
+#         'from_list': from_list
+#     }
+#     return render(request, 'detail_page.html', context=context)
 
 
 def search_results(request):
@@ -139,6 +139,10 @@ def search_results(request):
                 movie.item_id = str(item[0].id)
             else:
                 movie.added = False
+            movie.act = movie.get_actors()
+            movie.dir = movie.get_director()
+            movie.yr = movie.get_year()
+            movie.gen = movie.get_genre()
     except:
         pass
 

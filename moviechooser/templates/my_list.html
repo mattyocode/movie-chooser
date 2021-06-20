@@ -69,9 +69,7 @@
                   type="submit"
                   class="btn btn-primary watched"
                   name="update"
-                  value="{{"
-                  list_item.id
-                  }}
+                  value="{{list_item.id}}"
                 >
                   <i
                     class="far fa-check-square"
@@ -82,14 +80,56 @@
                 {% endif %}
               </form>
 
-              <a
-                href="{% url 'detail' list_item.movie.imdbid %}"
-                class="btn btn-primary"
+              <button
+                class="btn btn-primary toggle-detail"
+                name="more"
+                data-id="{{list_item.movie.imdbid}}"
               >
                 <i class="fas fa-info-circle" alt="Movie info"></i>
-                <p class="button-text">More</p></a
-              >
+                <p class="button-text">More</p>
+              </button>
             </div>
+          </div>
+          <div
+            class="card-detail card-text hide"
+            id="{{list_item.movie.imdbid}}-detail"
+          >
+            <ul>
+              <li>Starring: {{ list_item.movie.act }}</li>
+              <li>Directed by: {{ list_item.movie.dir }}</li>
+              <li>Released: {{ list_item.movie.yr }}</li>
+              <li>Genre: {{ list_item.movie.gen }}</li>
+            </ul>
+            <ul class="ratings-details">
+              {% if list_item.movie.imdb_rating >= 0 %}
+              <li>
+                <img
+                  class="ratings-logo"
+                  src="{% static 'images/imdb.png' %}"
+                  alt="IMDB rating"
+                />
+                {{ list_item.movie.imdb_rating }}
+              </li>
+              {% endif %} {% if list_item.movie.rotten_tomatoes >= 0 %}
+              <li>
+                <img
+                  class="ratings-logo"
+                  src="{% static 'images/rotten.png' %}"
+                  alt="IMDB rating"
+                />
+                {{ list_item.movie.rotten_tomatoes }}
+              </li>
+              {% endif %} {% if list_item.movie.metacritic >= 0 %}
+              <li>
+                <img
+                  class="ratings-logo"
+                  src="{% static 'images/metacritic.png' %}"
+                  alt="IMDB rating"
+                />
+                {{ list_item.movie.metacritic }}
+              </li>
+              {% endif %}
+            </ul>
           </div>
         </div>
       </div>
@@ -104,29 +144,6 @@
   <h2 class="center-subhead"><strong>No movies added to list</strong></h2>
 
   {% endif %}
-  <!-- d
+</div>
+
 {% endblock %}
-
-{% if page_obj %}
-
-{% for movie in page_obj %}
-
-{% include 'movie_card.html' %}
-
-{% endfor %}
-
-{% include 'pagination.html' %}
-
-</div>
-
-{% else %}
-
-<div class="choices-panel">
-<h2 class="center-subhead"><strong>No movies match your search</strong></h2>
-<h2 class="center-subhead">Try again</h2>
-<br>
-<a href="{% url 'chooser:homepage' %}">Back to homepage</a>
-</div>
-
-{% endif %} -->
-</div>
