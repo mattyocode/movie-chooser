@@ -94,12 +94,20 @@
             class="card-detail card-text hide"
             id="{{list_item.movie.imdbid}}-detail"
           >
-            <ul>
-              <li>Starring: {{ list_item.movie.act }}</li>
-              <li>Directed by: {{ list_item.movie.dir }}</li>
-              <li>Released: {{ list_item.movie.yr }}</li>
-              <li>Genre: {{ list_item.movie.gen }}</li>
-            </ul>
+        <ul>
+          <li>
+            Starring: 
+                {{ list_item.movie.actors.all|join:", " }}
+          </li>
+          <li>
+            Directed by: 
+                {{ list_item.movie.director.all|join:", " }}
+          </li>
+          <li>Released: {{ list_item.movie.released|date:"Y" }}</li>
+          <li>Genre: 
+                {{ list_item.movie.genre.all|join:", " }}
+          </li>
+        </ul>
             <ul class="ratings-details">
               {% if list_item.movie.imdb_rating >= 0 %}
               <li>

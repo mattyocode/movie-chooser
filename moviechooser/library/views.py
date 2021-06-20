@@ -68,10 +68,6 @@ def surprise(request):
 
     context = {
         'movie': random_movie,
-        'actors': random_movie.get_actors(),
-        'director': random_movie.get_director(),
-        'year': random_movie.get_year(),
-        'genre': random_movie.get_genre(),
         'try_again': True,
     }
 
@@ -139,10 +135,6 @@ def search_results(request):
                 movie.item_id = str(item[0].id)
             else:
                 movie.added = False
-            movie.act = movie.get_actors()
-            movie.dir = movie.get_director()
-            movie.yr = movie.get_year()
-            movie.gen = movie.get_genre()
     except:
         pass
 

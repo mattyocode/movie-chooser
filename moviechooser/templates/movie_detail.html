@@ -14,12 +14,20 @@
     <div class="col-md-8">
       <h3 class="my-3">{{ movie.title }}</h3>
       <p>{{ movie.plot }}</p>
-      <ul>
-        <li>Starring: {{ actors }}</li>
-        <li>Directed by: {{ director }}</li>
-        <li>Released: {{ year }}</li>
-        <li>Genre: {{ genre }}</li>
-      </ul>
+        <ul>
+          <li>
+            Starring: 
+                {{ movie.actors.all|join:", " }}
+          </li>
+          <li>
+            Directed by: 
+                {{ movie.director.all|join:", " }}
+          </li>
+          <li>Released: {{ movie.released|date:"Y" }}</li>
+          <li>Genre: 
+                {{ movie.genre.all|join:", " }}
+          </li>
+        </ul>
       <ul class="ratings-details">
         {% if movie.imdb_rating >= 0 %}
         <li>

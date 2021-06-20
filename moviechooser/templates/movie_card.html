@@ -59,16 +59,17 @@
       <div class="card-detail card-text hide" id="{{movie.imdbid}}-detail">
         <ul>
           <li>
-            Starring: {% for actor in movie.actors.all %} {{ actor.name }}
-            {% endfor %}
+            Starring: 
+                {{ movie.actors.all|join:", " }}
           </li>
           <li>
-            Directed by: {% for director in movie.director.all %}
-            {{director.name }} {% endfor %}
+            Directed by: 
+                {{ movie.director.all|join:", " }}
           </li>
           <li>Released: {{ movie.released|date:"Y" }}</li>
-          <li>Genre: {% for genre in movie.genre.all %}
-            {{genre.name }} {% endfor %}</li>
+          <li>Genre: 
+                {{ movie.genre.all|join:", " }}
+          </li>
         </ul>
         <ul class="ratings-details">
           {% if movie.imdb_rating >= 0 %}
