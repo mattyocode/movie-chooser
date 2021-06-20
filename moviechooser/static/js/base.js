@@ -24,7 +24,12 @@ function toggleDetail() {
       const movieCardId = e.currentTarget.dataset.id;
       const movieDetail = document.getElementById(`${movieCardId}-detail`);
       movieDetail.classList.toggle("hide");
-      btn.lastChild.innerHTML = "Less";
+      let btnText = btn.childNodes[3];
+      if (btnText.textContent === "More") {
+        btnText.textContent = "Less";
+      } else {
+        btnText.textContent = "More";
+      }
     });
   });
 }
