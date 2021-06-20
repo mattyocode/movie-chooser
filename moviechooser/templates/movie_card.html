@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="centered-element">
+<div class="centered-element" id="{{ movie.imdbid }}">
   <div class="card mb-3" style="width: 36rem">
     <div class="row no-gutters">
       <div class="col-4">
@@ -12,7 +12,7 @@
       </div>
 
       <div class="col-8">
-        <div class="card-body" id="{{ movie.imdbid }}">
+        <div class="card-body">
           <h5 class="card-title">{{ movie.title }}</h5>
           <p class="card-text">{{ movie.plot }}</p>
           <p class="card-text score">Average Score: {{ movie.avg_rating }}</p>
