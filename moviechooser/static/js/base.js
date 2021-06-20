@@ -24,6 +24,7 @@ function toggleDetail() {
       const movieCardId = e.currentTarget.dataset.id;
       const movieDetail = document.getElementById(`${movieCardId}-detail`);
       movieDetail.classList.toggle("hide");
+      btn.lastChild.innerHTML = `Less`;
     });
   });
 }
