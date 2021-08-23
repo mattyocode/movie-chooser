@@ -66,3 +66,15 @@ class Movie(models.Model):
         year = self.released.strftime("%Y")
         return year
         
+
+class OnDemand(models.Model):
+    imdbid = models.ForeignKey(
+        Movie, on_delete=models.CASCADE
+    )
+    service = models.CharField(max_length=50)
+    url = models.CharField(max_length=300)
+    added = models.DateField()
+    updated = models.DateField()
+
+    def __str__(self):
+        return self.imdbid + "--" + self.service
